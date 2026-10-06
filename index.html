@@ -1,18 +1,232 @@
-<!doctype html><html lang='ko'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover'><meta name='apple-mobile-web-app-capable' content='yes'><title>펭귄 자판기</title><link rel='stylesheet' href='style.css'></head><body>
-<div id='app'>
-<header><div class='brand'>🐧 <span>❄️</span></div><div class='hud'><span id='stars'>⭐ 0</span><span id='round'>● ● ● ● ●</span><button id='soundBtn'>🔊</button></div></header>
-<main>
-<section class='scene' id='scene'>
- <div class='sky'><span class='cloud c1'>☁️</span><span class='cloud c2'>☁️</span><span id='weather'>❄️</span></div>
- <div class='mountains'>🏔️　🏔️　🏔️</div>
- <div class='customerArea'><div id='customer' class='customer'>🐧</div><div id='accessory' class='accessory'></div><div id='bubble' class='bubble'><div id='orderIcons'></div></div></div>
- <div class='machine' id='machine'><div class='machineTop'>🐧　✨　🥤</div><div id='products' class='products'></div><div class='machineBottom'><div id='coinSlot'>🪙</div><div id='tray' class='tray'>▼</div></div><div id='snowCover'></div></div>
- <div id='delivery' class='delivery'></div>
- <div class='ice'>🧊　　🧊　　　　🧊</div>
-</section>
-<section class='controls'><button id='helpBtn' class='roundBtn'>👀</button><div id='message'>그림을 보고 골라 주세요!</div><button id='dressBtn' class='roundBtn'>🎀</button></section>
-</main>
-<div id='celebrate' class='overlay hidden'><div class='card'><div id='celebrateFace' class='big'>🐧</div><div id='celebrateText' class='icons'>⭐ ⭐ ⭐</div><button id='nextBtn'>▶️</button></div></div>
-<div id='dressOverlay' class='overlay hidden'><div class='card dressCard'><button class='close'>✖️</button><div class='big'>🐧</div><div class='dressGrid'><button data-acc='👑'>👑</button><button data-acc='🎀'>🎀</button><button data-acc='🧣'>🧣</button><button data-acc='👓'>👓</button><button data-acc='🌸'>🌸</button><button data-acc=''>🚫</button></div></div></div>
-<div id='miniOverlay' class='overlay hidden'><div class='card miniCard'><div id='miniTitle' class='icons'></div><div id='miniGame'></div></div></div>
-</div><script src='game.js'></script></body></html>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="theme-color" content="#bdefff" />
+
+  <title>펭귄 자판기</title>
+
+  <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+
+<div id="game">
+
+  <!-- 상단 -->
+  <header class="topBar">
+    <div class="logoArea">
+      <span class="logoPenguin">🐧</span>
+      <span class="logoMachine">🥤</span>
+    </div>
+
+    <div class="scoreBox">
+      ⭐ <span id="score">0</span>
+    </div>
+
+    <button id="soundBtn" class="roundBtn" type="button">
+      🔊
+    </button>
+  </header>
+
+
+  <!-- 하늘 / 손님 -->
+  <section id="customerArea">
+
+    <div class="snow snow1">❄️</div>
+    <div class="snow snow2">❄️</div>
+    <div class="snow snow3">❄️</div>
+
+    <div id="customerWrap">
+
+      <div id="speechBubble">
+        <div id="orderIcons"></div>
+      </div>
+
+      <div id="customer" class="customer">
+        🐧
+      </div>
+
+      <div id="customerAccessory"></div>
+
+    </div>
+
+  </section>
+
+
+  <!-- 자판기 -->
+  <section id="machineArea">
+
+    <div id="machine">
+
+      <div class="machineTop">
+        <span>🐧</span>
+        <div class="machineLights">
+          <i></i>
+          <i></i>
+          <i></i>
+        </div>
+        <span>⭐</span>
+      </div>
+
+
+      <div id="productGrid">
+
+        <button class="product" data-item="fish" type="button">
+          <span class="productEmoji">🐟</span>
+          <span class="productLight"></span>
+        </button>
+
+        <button class="product" data-item="juice" type="button">
+          <span class="productEmoji">🧃</span>
+          <span class="productLight"></span>
+        </button>
+
+        <button class="product" data-item="icecream" type="button">
+          <span class="productEmoji">🍦</span>
+          <span class="productLight"></span>
+        </button>
+
+        <button class="product" data-item="cookie" type="button">
+          <span class="productEmoji">🍪</span>
+          <span class="productLight"></span>
+        </button>
+
+        <button class="product" data-item="strawberry" type="button">
+          <span class="productEmoji">🍓</span>
+          <span class="productLight"></span>
+        </button>
+
+        <button class="product" data-item="milk" type="button">
+          <span class="productEmoji">🥛</span>
+          <span class="productLight"></span>
+        </button>
+
+        <button class="product" data-item="apple" type="button">
+          <span class="productEmoji">🍎</span>
+          <span class="productLight"></span>
+        </button>
+
+        <button class="product" data-item="cake" type="button">
+          <span class="productEmoji">🧁</span>
+          <span class="productLight"></span>
+        </button>
+
+      </div>
+
+
+      <div class="machineBottom">
+
+        <div class="coinSlot">
+          🪙
+        </div>
+
+        <div id="dropSlot">
+          <div id="fallingItem"></div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- 하단 상태 -->
+  <section id="bottomArea">
+
+    <div id="messageBox">
+      <span id="messageEmoji">👆</span>
+      <span id="messageText">그림을 눌러 주세요!</span>
+    </div>
+
+    <div id="collectedOrder"></div>
+
+  </section>
+
+
+  <!-- 성공 팝업 -->
+  <div id="successPopup" class="popup hidden">
+
+    <div class="popupCard">
+
+      <div class="bigPenguin" id="successPenguin">
+        🐧
+      </div>
+
+      <div class="bigStars">
+        ⭐ ⭐ ⭐
+      </div>
+
+      <div id="rewardItem" class="rewardItem">
+        🎀
+      </div>
+
+      <button id="nextBtn" class="bigButton" type="button">
+        ▶️
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- 미니게임 -->
+  <div id="miniGamePopup" class="popup hidden">
+
+    <div class="popupCard miniCard">
+
+      <div id="miniTitle" class="miniTitle">
+        ❄️
+      </div>
+
+      <div id="miniArea"></div>
+
+    </div>
+
+  </div>
+
+
+  <!-- 꾸미기 -->
+  <button id="dressButton" type="button">
+    👑
+  </button>
+
+
+  <div id="dressPopup" class="popup hidden">
+
+    <div class="popupCard dressCard">
+
+      <div class="dressPenguin">
+        <span>🐧</span>
+        <div id="dressPreview"></div>
+      </div>
+
+      <div class="dressChoices">
+
+        <button class="dressItem" data-accessory="👑" type="button">👑</button>
+        <button class="dressItem" data-accessory="🎀" type="button">🎀</button>
+        <button class="dressItem" data-accessory="🧢" type="button">🧢</button>
+        <button class="dressItem" data-accessory="👓" type="button">👓</button>
+        <button class="dressItem" data-accessory="🧣" type="button">🧣</button>
+        <button class="dressItem" data-accessory="" type="button">❌</button>
+
+      </div>
+
+      <button id="dressClose" class="bigButton" type="button">
+        ✔️
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+<script src="./game.js"></script>
+
+</body>
+</html>
