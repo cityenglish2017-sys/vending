@@ -1,1 +1,906 @@
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{margin:0;width:100%;height:100%;overflow:hidden;font-family:Arial,'Apple SD Gothic Neo',sans-serif;background:#dff6ff;touch-action:manipulation}button{font:inherit;border:0;cursor:pointer}#app{height:100dvh;display:flex;flex-direction:column;max-width:1100px;margin:auto;background:linear-gradient(#aee9ff,#eefcff)}header{height:9dvh;min-height:58px;display:flex;align-items:center;justify-content:space-between;padding:env(safe-area-inset-top) 3vw 0;background:rgba(255,255,255,.75);border-bottom:4px solid white}.brand{font-size:clamp(28px,5vw,52px)}.hud{display:flex;gap:2vw;align-items:center;font-weight:900;font-size:clamp(18px,3vw,30px)}#soundBtn{background:#fff;border-radius:50%;width:48px;height:48px;font-size:26px}.scene{height:78dvh;position:relative;overflow:hidden;background:linear-gradient(#77d7ff 0 48%,#eaffff 48%);}.sky{position:absolute;inset:0 0 auto;height:45%;font-size:35px}.cloud{position:absolute;filter:drop-shadow(0 4px 2px #ffffff88)}.c1{left:8%;top:18%}.c2{right:9%;top:8%;font-size:55px}#weather{position:absolute;left:48%;top:4%;font-size:45px}.mountains{position:absolute;top:30%;width:100%;text-align:center;font-size:clamp(55px,12vw,120px);opacity:.9;white-space:nowrap}.ice{position:absolute;bottom:0;width:100%;font-size:42px;color:#bcecff}.customerArea{position:absolute;left:3%;bottom:8%;width:34%;height:58%;display:flex;align-items:flex-end;justify-content:center}.customer{font-size:clamp(105px,21vw,220px);filter:drop-shadow(0 10px 5px #38738a55);transform-origin:bottom center}.accessory{position:absolute;bottom:36%;left:50%;transform:translateX(-50%);font-size:clamp(42px,7vw,80px);z-index:3}.bubble{position:absolute;top:0;right:-5%;min-width:130px;min-height:92px;background:white;border:5px solid #333;border-radius:50%;display:flex;align-items:center;justify-content:center;padding:12px;box-shadow:0 6px 0 #0002}.bubble:after{content:'';position:absolute;bottom:-23px;left:28%;border:14px solid transparent;border-top-color:#333;transform:rotate(18deg)}#orderIcons{font-size:clamp(38px,6vw,64px);white-space:nowrap}.machine{position:absolute;right:4%;bottom:5%;width:55%;height:75%;border-radius:26px;background:linear-gradient(135deg,#ff6f91,#ff9eb5);border:7px solid #fff;box-shadow:0 12px 0 #c64f70,0 20px 25px #25566a55;padding:2%}.machineTop{height:13%;display:flex;align-items:center;justify-content:center;font-size:clamp(26px,5vw,50px);background:#fff5;border-radius:15px}.products{height:62%;display:grid;grid-template-columns:repeat(3,1fr);gap:2%;padding:2%}.product{position:relative;background:linear-gradient(#e9fbff,#bceeff);border:4px solid white;border-radius:15px;display:flex;align-items:center;justify-content:center;font-size:clamp(38px,7vw,75px);box-shadow:inset 0 -8px 0 #84d4ed;transition:.12s}.product:active{transform:scale(.92)}.product .light{position:absolute;top:5px;right:7px;font-size:16px}.machineBottom{height:22%;display:flex;align-items:center;justify-content:space-around;background:#d64f75;border-radius:15px}.tray{width:50%;height:55%;background:#493d52;border:5px solid #fff;border-radius:10px;color:#fff;text-align:center;font-size:32px;padding-top:6px}#coinSlot{font-size:35px}#snowCover{position:absolute;inset:0;border-radius:20px;pointer-events:none}.snowed #snowCover{pointer-events:auto;background:rgba(245,253,255,.82);border:10px dotted white}.snowed #snowCover:after{content:'👆 〰️ 〰️';position:absolute;inset:40% 0 auto;text-align:center;font-size:clamp(38px,7vw,75px)}.delivery{position:absolute;right:23%;bottom:13%;font-size:70px;z-index:8;pointer-events:none}.drop{animation:drop .75s ease-in forwards}@keyframes drop{0%{transform:translateY(-240px) scale(.4);opacity:0}70%{transform:translateY(0) scale(1.2);opacity:1}100%{transform:scale(1);opacity:1}}.happy{animation:happy .55s ease 2}@keyframes happy{50%{transform:translateY(-18px) rotate(7deg)}}.shake{animation:shake .35s}@keyframes shake{25%{transform:translateX(-8px)}50%{transform:translateX(8px)}75%{transform:translateX(-5px)}}.controls{height:13dvh;min-height:70px;background:white;display:flex;align-items:center;justify-content:center;gap:3vw;padding:1vh 2vw calc(1vh + env(safe-area-inset-bottom))}.roundBtn{width:64px;height:64px;border-radius:50%;font-size:32px;background:#fff1a8;box-shadow:0 5px 0 #d7bd47}#message{min-width:45%;text-align:center;font-size:clamp(18px,3vw,30px);font-weight:900;color:#34495e}.overlay{position:fixed;z-index:20;inset:0;background:#18435a99;display:flex;align-items:center;justify-content:center;padding:20px}.hidden{display:none}.card{position:relative;width:min(650px,92vw);min-height:300px;background:white;border-radius:35px;border:8px solid #b9efff;box-shadow:0 18px 0 #26566b66;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;padding:25px}.big{font-size:110px}.icons{font-size:50px}#nextBtn{font-size:55px;background:#8ee7a8;border-radius:25px;padding:10px 45px;box-shadow:0 8px 0 #48a765}.close{position:absolute;right:15px;top:15px;font-size:32px;background:transparent}.dressGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.dressGrid button{font-size:55px;background:#eafaff;border-radius:20px;padding:10px}.miniCard{min-height:420px}.miniGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.miniGrid button{font-size:70px;padding:18px;background:#eafaff;border-radius:20px}.coinField{width:100%;height:240px;position:relative;background:#e9fbff;border-radius:25px}.coin{position:absolute;font-size:55px;background:none}.wipeHint{font-size:70px;animation:happy 1s infinite}@media(max-height:650px){.scene{height:76dvh}.controls{height:15dvh}.customer{font-size:105px}.machine{height:72%}.product{font-size:38px}.bubble{min-height:65px}.big{font-size:75px}.card{min-height:240px}}
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+  background: #bdefff;
+}
+
+button {
+  font-family: inherit;
+  touch-action: manipulation;
+}
+
+#game {
+  position: relative;
+  width: 100vw;
+  height: 100dvh;
+  min-height: 100vh;
+  overflow: hidden;
+  background:
+    linear-gradient(
+      to bottom,
+      #9ee7ff 0%,
+      #dff8ff 48%,
+      #eefcff 48%,
+      #eafaff 100%
+    );
+}
+
+
+/* ==============================
+   상단
+============================== */
+
+.topBar {
+  height: 9%;
+  min-height: 65px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 8px 20px;
+
+  background: rgba(255,255,255,0.8);
+
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+
+  position: relative;
+  z-index: 20;
+}
+
+.logoArea {
+  display: flex;
+  gap: 6px;
+  font-size: clamp(30px, 5vw, 52px);
+}
+
+.scoreBox {
+  background: white;
+  padding: 8px 18px;
+
+  border-radius: 25px;
+
+  font-size: clamp(22px, 4vw, 38px);
+  font-weight: bold;
+
+  box-shadow: 0 4px 0 rgba(0,0,0,0.1);
+}
+
+.roundBtn {
+  width: 58px;
+  height: 58px;
+
+  border: none;
+  border-radius: 50%;
+
+  background: white;
+
+  font-size: 30px;
+
+  box-shadow: 0 5px 0 rgba(0,0,0,0.12);
+}
+
+.roundBtn:active {
+  transform: translateY(3px);
+  box-shadow: 0 2px 0 rgba(0,0,0,0.12);
+}
+
+
+/* ==============================
+   손님
+============================== */
+
+#customerArea {
+  height: 24%;
+  min-height: 160px;
+
+  position: relative;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+#customerWrap {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  z-index: 5;
+}
+
+#speechBubble {
+  min-width: 130px;
+  min-height: 72px;
+
+  padding: 7px 15px;
+
+  border-radius: 25px;
+
+  background: white;
+
+  border: 5px solid #4b88b5;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: relative;
+
+  box-shadow: 0 5px 0 rgba(0,0,0,0.12);
+}
+
+#speechBubble::after {
+  content: "";
+
+  position: absolute;
+
+  bottom: -20px;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  border-left: 14px solid transparent;
+  border-right: 14px solid transparent;
+  border-top: 20px solid #4b88b5;
+}
+
+#orderIcons {
+  font-size: clamp(34px, 6vw, 60px);
+  letter-spacing: 5px;
+}
+
+.customer {
+  margin-top: 8px;
+
+  font-size: clamp(80px, 14vw, 135px);
+
+  line-height: 1;
+
+  filter: drop-shadow(0 7px 2px rgba(0,0,0,0.15));
+
+  animation: customerIdle 1.8s infinite ease-in-out;
+}
+
+@keyframes customerIdle {
+
+  0%,
+  100% {
+    transform: translateY(0) rotate(-2deg);
+  }
+
+  50% {
+    transform: translateY(-7px) rotate(2deg);
+  }
+
+}
+
+#customerAccessory {
+  position: absolute;
+
+  top: 80px;
+
+  font-size: clamp(30px, 5vw, 48px);
+
+  z-index: 10;
+}
+
+
+/* ==============================
+   눈
+============================== */
+
+.snow {
+  position: absolute;
+
+  top: -20px;
+
+  font-size: 30px;
+
+  opacity: 0.8;
+
+  animation: snowFall 5s linear infinite;
+}
+
+.snow1 {
+  left: 10%;
+}
+
+.snow2 {
+  left: 78%;
+  animation-delay: 1.5s;
+}
+
+.snow3 {
+  left: 45%;
+  animation-delay: 3s;
+}
+
+@keyframes snowFall {
+
+  from {
+    transform: translateY(-30px) rotate(0deg);
+  }
+
+  to {
+    transform: translateY(230px) rotate(360deg);
+  }
+
+}
+
+
+/* ==============================
+   자판기
+============================== */
+
+#machineArea {
+  height: 51%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 5px 15px;
+}
+
+#machine {
+  width: min(680px, 95vw);
+  height: 100%;
+
+  max-height: 520px;
+
+  background: #ef5d79;
+
+  border: 8px solid #b93957;
+
+  border-radius: 32px;
+
+  padding: 12px;
+
+  box-shadow:
+    0 10px 0 #913047,
+    0 15px 20px rgba(0,0,0,0.2);
+
+  display: flex;
+  flex-direction: column;
+}
+
+.machineTop {
+  height: 12%;
+
+  min-height: 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 15px;
+
+  font-size: 32px;
+}
+
+.machineLights {
+  display: flex;
+  gap: 8px;
+}
+
+.machineLights i {
+  width: 14px;
+  height: 14px;
+
+  border-radius: 50%;
+
+  background: #fff99d;
+
+  box-shadow: 0 0 12px #fff600;
+
+  animation: blink 1s infinite alternate;
+}
+
+.machineLights i:nth-child(2) {
+  animation-delay: .3s;
+}
+
+.machineLights i:nth-child(3) {
+  animation-delay: .6s;
+}
+
+@keyframes blink {
+
+  from {
+    opacity: .35;
+  }
+
+  to {
+    opacity: 1;
+  }
+
+}
+
+
+/* ==============================
+   상품
+============================== */
+
+#productGrid {
+  flex: 1;
+
+  background: #c7f4ff;
+
+  border: 6px solid #753b4c;
+
+  border-radius: 20px;
+
+  padding: 10px;
+
+  display: grid;
+
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+
+  gap: 9px;
+}
+
+.product {
+  position: relative;
+
+  border: 5px solid white;
+  border-radius: 20px;
+
+  background:
+    linear-gradient(
+      to bottom,
+      #ffffff,
+      #e9fbff
+    );
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  cursor: pointer;
+
+  box-shadow:
+    inset 0 -8px 0 rgba(0,0,0,0.05),
+    0 5px 0 rgba(0,0,0,0.15);
+
+  transition:
+    transform .12s,
+    background .12s;
+}
+
+.product:active {
+  transform: scale(.91);
+}
+
+.productEmoji {
+  font-size: clamp(42px, 7vw, 72px);
+
+  filter: drop-shadow(0 5px 2px rgba(0,0,0,.13));
+}
+
+.productLight {
+  position: absolute;
+
+  width: 12px;
+  height: 12px;
+
+  right: 7px;
+  top: 7px;
+
+  background: #77dd77;
+
+  border-radius: 50%;
+
+  box-shadow: 0 0 6px #77dd77;
+}
+
+.product.flash {
+  animation: productFlash .4s;
+}
+
+@keyframes productFlash {
+
+  0% {
+    background: white;
+  }
+
+  50% {
+    background: #fff39b;
+    transform: scale(1.08);
+  }
+
+  100% {
+    background: white;
+  }
+
+}
+
+
+/* ==============================
+   자판기 아래
+============================== */
+
+.machineBottom {
+  height: 20%;
+
+  min-height: 68px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 20px;
+
+  padding-top: 8px;
+}
+
+.coinSlot {
+  width: 55px;
+  height: 55px;
+
+  background: #333;
+
+  border-radius: 12px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 32px;
+}
+
+#dropSlot {
+  width: 55%;
+  height: 58px;
+
+  background: #302a35;
+
+  border: 6px solid #8f2944;
+
+  border-radius: 15px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  overflow: hidden;
+}
+
+#fallingItem {
+  font-size: 48px;
+
+  opacity: 0;
+}
+
+.dropAnimation {
+  animation: dropItem .65s ease-out;
+}
+
+@keyframes dropItem {
+
+  0% {
+    transform: translateY(-100px) scale(.6);
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+
+}
+
+
+/* ==============================
+   아래 상태
+============================== */
+
+#bottomArea {
+  height: 16%;
+
+  min-height: 90px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  padding: 5px 15px;
+}
+
+#messageBox {
+  background: white;
+
+  border-radius: 22px;
+
+  padding: 7px 20px;
+
+  font-size: clamp(18px, 3vw, 28px);
+
+  box-shadow: 0 4px 0 rgba(0,0,0,.1);
+}
+
+#messageEmoji {
+  font-size: 30px;
+}
+
+#messageText {
+  margin-left: 5px;
+}
+
+#collectedOrder {
+  height: 45px;
+
+  margin-top: 4px;
+
+  font-size: 36px;
+
+  letter-spacing: 6px;
+}
+
+
+/* ==============================
+   팝업
+============================== */
+
+.popup {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 100;
+
+  background: rgba(37, 70, 93, .55);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.popupCard {
+  width: min(520px, 90vw);
+
+  background: white;
+
+  border-radius: 35px;
+
+  padding: 25px;
+
+  text-align: center;
+
+  box-shadow: 0 15px 0 rgba(0,0,0,.18);
+
+  animation: popupIn .3s ease-out;
+}
+
+@keyframes popupIn {
+
+  from {
+    transform: scale(.5) rotate(-5deg);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1) rotate(0);
+    opacity: 1;
+  }
+
+}
+
+.bigPenguin {
+  font-size: 120px;
+
+  animation: happyDance .5s infinite alternate;
+}
+
+@keyframes happyDance {
+
+  from {
+    transform: rotate(-10deg) translateY(0);
+  }
+
+  to {
+    transform: rotate(10deg) translateY(-10px);
+  }
+
+}
+
+.bigStars {
+  font-size: 55px;
+
+  margin: 10px;
+}
+
+.rewardItem {
+  font-size: 70px;
+
+  margin: 10px;
+}
+
+.bigButton {
+  border: none;
+
+  min-width: 120px;
+
+  padding: 14px 30px;
+
+  border-radius: 25px;
+
+  background: #5bcf87;
+
+  font-size: 45px;
+
+  box-shadow: 0 7px 0 #339e5a;
+}
+
+.bigButton:active {
+  transform: translateY(5px);
+  box-shadow: 0 2px 0 #339e5a;
+}
+
+
+/* ==============================
+   꾸미기
+============================== */
+
+#dressButton {
+  position: fixed;
+
+  right: 16px;
+  bottom: 16px;
+
+  width: 70px;
+  height: 70px;
+
+  border: none;
+  border-radius: 50%;
+
+  background: #fff;
+
+  font-size: 38px;
+
+  box-shadow: 0 6px 0 rgba(0,0,0,.18);
+
+  z-index: 40;
+}
+
+.dressPenguin {
+  position: relative;
+
+  display: inline-block;
+
+  font-size: 130px;
+}
+
+#dressPreview {
+  position: absolute;
+
+  top: -15px;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  font-size: 48px;
+}
+
+.dressChoices {
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 10px;
+
+  margin: 20px 0;
+}
+
+.dressItem {
+  border: 4px solid #cdefff;
+
+  background: #effbff;
+
+  border-radius: 18px;
+
+  height: 75px;
+
+  font-size: 42px;
+}
+
+
+/* ==============================
+   미니게임
+============================== */
+
+.miniTitle {
+  font-size: 70px;
+
+  margin-bottom: 15px;
+}
+
+#miniArea {
+  position: relative;
+
+  width: 100%;
+  height: 300px;
+
+  background: #dff8ff;
+
+  border-radius: 25px;
+
+  overflow: hidden;
+}
+
+.snowPatch {
+  position: absolute;
+
+  width: 90px;
+  height: 90px;
+
+  border: none;
+  border-radius: 50%;
+
+  background: white;
+
+  font-size: 45px;
+
+  box-shadow: 0 5px 0 rgba(0,0,0,.12);
+}
+
+.miniCoin {
+  position: absolute;
+
+  border: none;
+  background: transparent;
+
+  font-size: 65px;
+
+  animation: coinBounce .8s infinite alternate;
+}
+
+@keyframes coinBounce {
+
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(-12px);
+  }
+
+}
+
+.escapeFish {
+  position: absolute;
+
+  border: none;
+  background: transparent;
+
+  font-size: 70px;
+
+  animation: fishMove 2s infinite alternate ease-in-out;
+}
+
+@keyframes fishMove {
+
+  from {
+    left: 5%;
+    transform: rotate(-5deg);
+  }
+
+  to {
+    left: 70%;
+    transform: rotate(5deg);
+  }
+
+}
+
+
+/* ==============================
+   작은 화면 대응
+============================== */
+
+@media (max-height: 720px) {
+
+  .topBar {
+    min-height: 50px;
+  }
+
+  #customerArea {
+    min-height: 120px;
+  }
+
+  .customer {
+    font-size: 75px;
+  }
+
+  #speechBubble {
+    min-height: 55px;
+  }
+
+  #orderIcons {
+    font-size: 36px;
+  }
+
+  #machine {
+    padding: 7px;
+  }
+
+  .productEmoji {
+    font-size: 42px;
+  }
+
+  #bottomArea {
+    min-height: 70px;
+  }
+
+}
+
+
+/* iPad 가로모드 */
+
+@media (orientation: landscape) {
+
+  #game {
+    display: grid;
+
+    grid-template-columns: 34% 66%;
+    grid-template-rows: 11% 72% 17%;
+  }
+
+  .topBar {
+    grid-column: 1 / 3;
+    height: 100%;
+  }
+
+  #customerArea {
+    grid-column: 1;
+    grid-row: 2;
+
+    height: 100%;
+
+    align-items: center;
+  }
+
+  #machineArea {
+    grid-column: 2;
+    grid-row: 2;
+
+    height: 100%;
+  }
+
+  #bottomArea {
+    grid-column: 1 / 3;
+    grid-row: 3;
+
+    height: 100%;
+  }
+
+  #machine {
+    max-width: 700px;
+  }
+
+}
