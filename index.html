@@ -1,131 +1,182 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="theme-color" content="#bdefff" />
+  <meta charset="UTF-8">
 
-  <title>펭귄 자판기</title>
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+  >
 
-  <link rel="stylesheet" href="./style.css" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+
+  <title>🐧 펭귄 자판기</title>
+
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
 <div id="game">
 
-  <!-- 상단 -->
-  <header class="topBar">
-    <div class="logoArea">
-      <span class="logoPenguin">🐧</span>
-      <span class="logoMachine">🥤</span>
+  <!-- =========================
+       상단
+  ========================== -->
+  <header id="topBar">
+
+    <div class="topPenguin">
+      🐧
     </div>
 
-    <div class="scoreBox">
+    <div id="starBox">
       ⭐ <span id="score">0</span>
     </div>
 
-    <button id="soundBtn" class="roundBtn" type="button">
+    <button id="soundButton" class="circleButton">
       🔊
     </button>
+
   </header>
 
 
-  <!-- 하늘 / 손님 -->
+  <!-- =========================
+       손님 영역
+  ========================== -->
   <section id="customerArea">
 
-    <div class="snow snow1">❄️</div>
-    <div class="snow snow2">❄️</div>
-    <div class="snow snow3">❄️</div>
+    <div class="cloud cloud1">☁️</div>
+    <div class="cloud cloud2">☁️</div>
 
-    <div id="customerWrap">
+    <div class="iceDecoration ice1">❄️</div>
+    <div class="iceDecoration ice2">❄️</div>
 
-      <div id="speechBubble">
-        <div id="orderIcons"></div>
+    <div id="customerBox">
+
+      <!-- 주문 말풍선 -->
+      <div id="orderBubble">
+        <div id="orderPictures">
+          🐟
+        </div>
       </div>
 
-      <div id="customer" class="customer">
+      <!-- 손님 -->
+      <div id="customerCharacter">
         🐧
       </div>
 
-      <div id="customerAccessory"></div>
+      <div id="customerHat"></div>
 
     </div>
 
   </section>
 
 
-  <!-- 자판기 -->
-  <section id="machineArea">
+  <!-- =========================
+       자판기
+  ========================== -->
+  <section id="vendingArea">
 
-    <div id="machine">
+    <div id="vendingMachine">
 
-      <div class="machineTop">
+      <!-- 자판기 간판 -->
+      <div id="machineSign">
+
         <span>🐧</span>
-        <div class="machineLights">
-          <i></i>
-          <i></i>
-          <i></i>
+
+        <div class="signLights">
+          <span></span>
+          <span></span>
+          <span></span>
         </div>
+
         <span>⭐</span>
-      </div>
-
-
-      <div id="productGrid">
-
-        <button class="product" data-item="fish" type="button">
-          <span class="productEmoji">🐟</span>
-          <span class="productLight"></span>
-        </button>
-
-        <button class="product" data-item="juice" type="button">
-          <span class="productEmoji">🧃</span>
-          <span class="productLight"></span>
-        </button>
-
-        <button class="product" data-item="icecream" type="button">
-          <span class="productEmoji">🍦</span>
-          <span class="productLight"></span>
-        </button>
-
-        <button class="product" data-item="cookie" type="button">
-          <span class="productEmoji">🍪</span>
-          <span class="productLight"></span>
-        </button>
-
-        <button class="product" data-item="strawberry" type="button">
-          <span class="productEmoji">🍓</span>
-          <span class="productLight"></span>
-        </button>
-
-        <button class="product" data-item="milk" type="button">
-          <span class="productEmoji">🥛</span>
-          <span class="productLight"></span>
-        </button>
-
-        <button class="product" data-item="apple" type="button">
-          <span class="productEmoji">🍎</span>
-          <span class="productLight"></span>
-        </button>
-
-        <button class="product" data-item="cake" type="button">
-          <span class="productEmoji">🧁</span>
-          <span class="productLight"></span>
-        </button>
 
       </div>
 
 
-      <div class="machineBottom">
+      <!-- 상품 진열 -->
+      <div id="products">
 
-        <div class="coinSlot">
-          🪙
+        <button class="productButton" data-item="fish">
+          <div class="productWindow">
+            🐟
+          </div>
+          <div class="littleButton"></div>
+        </button>
+
+
+        <button class="productButton" data-item="juice">
+          <div class="productWindow">
+            🧃
+          </div>
+          <div class="littleButton"></div>
+        </button>
+
+
+        <button class="productButton" data-item="icecream">
+          <div class="productWindow">
+            🍦
+          </div>
+          <div class="littleButton"></div>
+        </button>
+
+
+        <button class="productButton" data-item="cookie">
+          <div class="productWindow">
+            🍪
+          </div>
+          <div class="littleButton"></div>
+        </button>
+
+
+        <button class="productButton" data-item="strawberry">
+          <div class="productWindow">
+            🍓
+          </div>
+          <div class="littleButton"></div>
+        </button>
+
+
+        <button class="productButton" data-item="milk">
+          <div class="productWindow">
+            🥛
+          </div>
+          <div class="littleButton"></div>
+        </button>
+
+
+        <button class="productButton" data-item="apple">
+          <div class="productWindow">
+            🍎
+          </div>
+          <div class="littleButton"></div>
+        </button>
+
+
+        <button class="productButton" data-item="cake">
+          <div class="productWindow">
+            🧁
+          </div>
+          <div class="littleButton"></div>
+        </button>
+
+      </div>
+
+
+      <!-- 자판기 하단 -->
+      <div id="machineBottom">
+
+        <div id="coinPart">
+          <div class="coinPicture">🪙</div>
+          <div class="coinHole"></div>
         </div>
 
-        <div id="dropSlot">
-          <div id="fallingItem"></div>
+
+        <!-- 상품 떨어지는 곳 -->
+        <div id="deliveryDoor">
+
+          <div id="deliveryItem"></div>
+
         </div>
 
       </div>
@@ -135,37 +186,57 @@
   </section>
 
 
-  <!-- 하단 상태 -->
+  <!-- =========================
+       하단 안내
+  ========================== -->
   <section id="bottomArea">
 
-    <div id="messageBox">
-      <span id="messageEmoji">👆</span>
-      <span id="messageText">그림을 눌러 주세요!</span>
+    <div id="guideBox">
+
+      <span id="guideEmoji">👆</span>
+
+      <span id="guideText">
+        같은 그림을 찾아봐!
+      </span>
+
     </div>
 
-    <div id="collectedOrder"></div>
+
+    <div id="pickedItems"></div>
 
   </section>
 
 
-  <!-- 성공 팝업 -->
-  <div id="successPopup" class="popup hidden">
+  <!-- =========================
+       꾸미기 버튼
+  ========================== -->
 
-    <div class="popupCard">
+  <button id="dressOpenButton">
+    🎀
+  </button>
 
-      <div class="bigPenguin" id="successPenguin">
+
+  <!-- =========================
+       성공 팝업
+  ========================== -->
+
+  <div id="successScreen" class="overlay hidden">
+
+    <div class="popup">
+
+      <div id="happyPenguin">
         🐧
       </div>
 
-      <div class="bigStars">
+      <div class="starParty">
         ⭐ ⭐ ⭐
       </div>
 
-      <div id="rewardItem" class="rewardItem">
-        🎀
+      <div id="rewardPicture">
+        🎁
       </div>
 
-      <button id="nextBtn" class="bigButton" type="button">
+      <button id="nextButton">
         ▶️
       </button>
 
@@ -174,49 +245,57 @@
   </div>
 
 
-  <!-- 미니게임 -->
-  <div id="miniGamePopup" class="popup hidden">
+  <!-- =========================
+       꾸미기 팝업
+  ========================== -->
 
-    <div class="popupCard miniCard">
+  <div id="dressScreen" class="overlay hidden">
 
-      <div id="miniTitle" class="miniTitle">
-        ❄️
+    <div class="popup">
+
+      <div class="dressTitle">
+        🐧 ✨
       </div>
 
-      <div id="miniArea"></div>
+      <div id="dressPenguin">
 
-    </div>
+        <div id="dressAccessory"></div>
 
-  </div>
-
-
-  <!-- 꾸미기 -->
-  <button id="dressButton" type="button">
-    👑
-  </button>
-
-
-  <div id="dressPopup" class="popup hidden">
-
-    <div class="popupCard dressCard">
-
-      <div class="dressPenguin">
-        <span>🐧</span>
-        <div id="dressPreview"></div>
-      </div>
-
-      <div class="dressChoices">
-
-        <button class="dressItem" data-accessory="👑" type="button">👑</button>
-        <button class="dressItem" data-accessory="🎀" type="button">🎀</button>
-        <button class="dressItem" data-accessory="🧢" type="button">🧢</button>
-        <button class="dressItem" data-accessory="👓" type="button">👓</button>
-        <button class="dressItem" data-accessory="🧣" type="button">🧣</button>
-        <button class="dressItem" data-accessory="" type="button">❌</button>
+        🐧
 
       </div>
 
-      <button id="dressClose" class="bigButton" type="button">
+
+      <div id="dressChoices">
+
+        <button class="dressChoice" data-dress="👑">
+          👑
+        </button>
+
+        <button class="dressChoice" data-dress="🎀">
+          🎀
+        </button>
+
+        <button class="dressChoice" data-dress="🧢">
+          🧢
+        </button>
+
+        <button class="dressChoice" data-dress="👓">
+          👓
+        </button>
+
+        <button class="dressChoice" data-dress="🧣">
+          🧣
+        </button>
+
+        <button class="dressChoice" data-dress="">
+          ❌
+        </button>
+
+      </div>
+
+
+      <button id="dressCloseButton">
         ✔️
       </button>
 
@@ -224,9 +303,30 @@
 
   </div>
 
+
+  <!-- =========================
+       미니게임
+  ========================== -->
+
+  <div id="miniGameScreen" class="overlay hidden">
+
+    <div class="popup miniPopup">
+
+      <div id="miniGameTitle">
+        ❄️
+      </div>
+
+      <div id="miniGameArea"></div>
+
+    </div>
+
+  </div>
+
 </div>
 
-<script src="./game.js"></script>
+
+<!-- 중요: script.js -->
+<script src="script.js"></script>
 
 </body>
 </html>
