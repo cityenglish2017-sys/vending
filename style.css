@@ -1,3 +1,7 @@
+/* =====================================
+   기본 설정
+===================================== */
+
 * {
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
@@ -8,410 +12,577 @@ html,
 body {
   margin: 0;
   padding: 0;
+
   width: 100%;
   height: 100%;
+
   overflow: hidden;
-  font-family: Arial, sans-serif;
-  background: #bdefff;
+
+  font-family:
+    Arial,
+    "Apple SD Gothic Neo",
+    sans-serif;
+
+  background: #bcecff;
 }
 
 button {
   font-family: inherit;
+  cursor: pointer;
   touch-action: manipulation;
 }
 
+
+/* =====================================
+   전체 게임
+===================================== */
+
 #game {
-  position: relative;
   width: 100vw;
+  height: 100vh;
   height: 100dvh;
-  min-height: 100vh;
+
   overflow: hidden;
+
+  position: relative;
+
   background:
     linear-gradient(
       to bottom,
-      #9ee7ff 0%,
-      #dff8ff 48%,
-      #eefcff 48%,
-      #eafaff 100%
+      #91dcff 0%,
+      #d9f6ff 45%,
+      #f6fdff 45%,
+      #e7faff 100%
     );
 }
 
 
-/* ==============================
+/* =====================================
    상단
-============================== */
+===================================== */
 
-.topBar {
+#topBar {
   height: 9%;
+
   min-height: 65px;
 
   display: flex;
+
   align-items: center;
   justify-content: space-between;
 
-  padding: 8px 20px;
+  padding:
+    max(7px, env(safe-area-inset-top))
+    20px
+    5px
+    20px;
 
-  background: rgba(255,255,255,0.8);
+  background:
+    rgba(255,255,255,0.85);
 
-  border-bottom-left-radius: 25px;
-  border-bottom-right-radius: 25px;
+  border-radius:
+    0 0 28px 28px;
 
   position: relative;
+
   z-index: 20;
 }
 
-.logoArea {
-  display: flex;
-  gap: 6px;
-  font-size: clamp(30px, 5vw, 52px);
+
+.topPenguin {
+  font-size:
+    clamp(34px, 5vw, 50px);
 }
 
-.scoreBox {
+
+#starBox {
   background: white;
-  padding: 8px 18px;
 
-  border-radius: 25px;
+  border-radius: 30px;
 
-  font-size: clamp(22px, 4vw, 38px);
+  padding: 7px 20px;
+
+  font-size:
+    clamp(25px, 4vw, 38px);
+
   font-weight: bold;
 
-  box-shadow: 0 4px 0 rgba(0,0,0,0.1);
+  box-shadow:
+    0 5px 0
+    rgba(0,0,0,0.12);
 }
 
-.roundBtn {
+
+.circleButton {
   width: 58px;
   height: 58px;
 
-  border: none;
+  border: 0;
+
   border-radius: 50%;
 
   background: white;
 
-  font-size: 30px;
+  font-size: 29px;
 
-  box-shadow: 0 5px 0 rgba(0,0,0,0.12);
-}
-
-.roundBtn:active {
-  transform: translateY(3px);
-  box-shadow: 0 2px 0 rgba(0,0,0,0.12);
+  box-shadow:
+    0 5px 0
+    rgba(0,0,0,0.15);
 }
 
 
-/* ==============================
+.circleButton:active {
+  transform:
+    translateY(3px);
+
+  box-shadow:
+    0 2px 0
+    rgba(0,0,0,0.15);
+}
+
+
+/* =====================================
    손님
-============================== */
+===================================== */
 
 #customerArea {
   height: 24%;
+
   min-height: 160px;
 
-  position: relative;
-
   display: flex;
-  align-items: flex-end;
+
   justify-content: center;
+  align-items: flex-end;
+
+  position: relative;
 }
 
-#customerWrap {
+
+#customerBox {
   position: relative;
 
   display: flex;
+
   flex-direction: column;
+
   align-items: center;
 
   z-index: 5;
 }
 
-#speechBubble {
-  min-width: 130px;
-  min-height: 72px;
 
-  padding: 7px 15px;
+/* 주문 말풍선 */
 
-  border-radius: 25px;
+#orderBubble {
+  min-width: 140px;
+
+  min-height: 75px;
+
+  padding: 8px 18px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
 
   background: white;
 
-  border: 5px solid #4b88b5;
+  border:
+    5px solid #357cad;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  border-radius: 28px;
+
+  box-shadow:
+    0 5px 0
+    rgba(0,0,0,0.12);
 
   position: relative;
-
-  box-shadow: 0 5px 0 rgba(0,0,0,0.12);
 }
 
-#speechBubble::after {
+
+#orderBubble::after {
   content: "";
 
   position: absolute;
 
   bottom: -20px;
+
   left: 50%;
 
-  transform: translateX(-50%);
+  transform:
+    translateX(-50%);
 
-  border-left: 14px solid transparent;
-  border-right: 14px solid transparent;
-  border-top: 20px solid #4b88b5;
+  border-left:
+    15px solid transparent;
+
+  border-right:
+    15px solid transparent;
+
+  border-top:
+    20px solid #357cad;
 }
 
-#orderIcons {
-  font-size: clamp(34px, 6vw, 60px);
-  letter-spacing: 5px;
+
+#orderPictures {
+  font-size:
+    clamp(40px, 6vw, 62px);
+
+  letter-spacing: 6px;
 }
 
-.customer {
-  margin-top: 8px;
 
-  font-size: clamp(80px, 14vw, 135px);
+/* 캐릭터 */
+
+#customerCharacter {
+  font-size:
+    clamp(80px, 14vw, 135px);
 
   line-height: 1;
 
-  filter: drop-shadow(0 7px 2px rgba(0,0,0,0.15));
+  margin-top: 8px;
 
-  animation: customerIdle 1.8s infinite ease-in-out;
+  filter:
+    drop-shadow(
+      0 6px 2px
+      rgba(0,0,0,0.15)
+    );
+
+  animation:
+    penguinIdle
+    1.5s
+    ease-in-out
+    infinite;
 }
 
-@keyframes customerIdle {
+
+@keyframes penguinIdle {
 
   0%,
   100% {
-    transform: translateY(0) rotate(-2deg);
+    transform:
+      translateY(0)
+      rotate(-3deg);
   }
 
   50% {
-    transform: translateY(-7px) rotate(2deg);
+    transform:
+      translateY(-6px)
+      rotate(3deg);
   }
-
 }
 
-#customerAccessory {
+
+#customerHat {
   position: absolute;
 
-  top: 80px;
+  top: 77px;
 
-  font-size: clamp(30px, 5vw, 48px);
+  left: 50%;
+
+  transform:
+    translateX(-50%);
+
+  font-size:
+    clamp(32px, 5vw, 50px);
 
   z-index: 10;
 }
 
 
-/* ==============================
-   눈
-============================== */
+/* =====================================
+   배경 장식
+===================================== */
 
-.snow {
+.cloud {
   position: absolute;
 
-  top: -20px;
-
-  font-size: 30px;
+  font-size: 45px;
 
   opacity: 0.8;
-
-  animation: snowFall 5s linear infinite;
 }
 
-.snow1 {
-  left: 10%;
+.cloud1 {
+  left: 6%;
+  top: 15%;
 }
 
-.snow2 {
-  left: 78%;
-  animation-delay: 1.5s;
+.cloud2 {
+  right: 7%;
+  top: 32%;
 }
 
-.snow3 {
-  left: 45%;
-  animation-delay: 3s;
+
+.iceDecoration {
+  position: absolute;
+
+  font-size: 28px;
+
+  animation:
+    snowMove
+    4s
+    linear
+    infinite;
 }
 
-@keyframes snowFall {
+.ice1 {
+  left: 20%;
+  top: 0;
+}
+
+.ice2 {
+  right: 20%;
+  top: 10%;
+
+  animation-delay: 2s;
+}
+
+
+@keyframes snowMove {
 
   from {
-    transform: translateY(-30px) rotate(0deg);
+    transform:
+      translateY(-20px)
+      rotate(0deg);
   }
 
   to {
-    transform: translateY(230px) rotate(360deg);
+    transform:
+      translateY(180px)
+      rotate(360deg);
   }
-
 }
 
 
-/* ==============================
-   자판기
-============================== */
+/* =====================================
+   자판기 영역
+===================================== */
 
-#machineArea {
+#vendingArea {
   height: 51%;
 
+  padding: 5px 14px;
+
   display: flex;
+
   justify-content: center;
   align-items: center;
-
-  padding: 5px 15px;
 }
 
-#machine {
-  width: min(680px, 95vw);
+
+#vendingMachine {
+  width:
+    min(700px, 95vw);
+
   height: 100%;
 
-  max-height: 520px;
+  max-height: 530px;
 
-  background: #ef5d79;
+  padding: 11px;
 
-  border: 8px solid #b93957;
+  display: flex;
+
+  flex-direction: column;
+
+  background:
+    linear-gradient(
+      135deg,
+      #ff718c,
+      #ed496a
+    );
+
+  border:
+    8px solid #ad2e4a;
 
   border-radius: 32px;
 
-  padding: 12px;
-
   box-shadow:
-    0 10px 0 #913047,
-    0 15px 20px rgba(0,0,0,0.2);
-
-  display: flex;
-  flex-direction: column;
+    0 10px 0 #86263c,
+    0 17px 20px
+    rgba(0,0,0,0.2);
 }
 
-.machineTop {
+
+/* 자판기 위 */
+
+#machineSign {
   height: 12%;
 
   min-height: 42px;
 
+  padding: 0 15px;
+
   display: flex;
+
   align-items: center;
   justify-content: space-between;
 
-  padding: 0 15px;
-
-  font-size: 32px;
+  font-size: 30px;
 }
 
-.machineLights {
+
+.signLights {
   display: flex;
-  gap: 8px;
+
+  gap: 10px;
 }
 
-.machineLights i {
-  width: 14px;
-  height: 14px;
+
+.signLights span {
+  width: 15px;
+  height: 15px;
 
   border-radius: 50%;
 
-  background: #fff99d;
+  background: #fff68a;
 
-  box-shadow: 0 0 12px #fff600;
+  box-shadow:
+    0 0 12px
+    #fff000;
 
-  animation: blink 1s infinite alternate;
+  animation:
+    lightBlink
+    0.8s
+    alternate
+    infinite;
 }
 
-.machineLights i:nth-child(2) {
-  animation-delay: .3s;
+
+.signLights span:nth-child(2) {
+  animation-delay:
+    0.2s;
 }
 
-.machineLights i:nth-child(3) {
-  animation-delay: .6s;
+.signLights span:nth-child(3) {
+  animation-delay:
+    0.4s;
 }
 
-@keyframes blink {
+
+@keyframes lightBlink {
 
   from {
-    opacity: .35;
+    opacity: 0.35;
   }
 
   to {
     opacity: 1;
   }
-
 }
 
 
-/* ==============================
-   상품
-============================== */
+/* =====================================
+   상품 진열
+===================================== */
 
-#productGrid {
+#products {
   flex: 1;
-
-  background: #c7f4ff;
-
-  border: 6px solid #753b4c;
-
-  border-radius: 20px;
-
-  padding: 10px;
 
   display: grid;
 
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(2, 1fr);
+  grid-template-columns:
+    repeat(4, 1fr);
+
+  grid-template-rows:
+    repeat(2, 1fr);
 
   gap: 9px;
+
+  padding: 10px;
+
+  background: #aeeaff;
+
+  border:
+    6px solid #78354a;
+
+  border-radius: 21px;
 }
 
-.product {
+
+.productButton {
+  border: 0;
+
+  background: transparent;
+
+  padding: 0;
+
   position: relative;
 
-  border: 5px solid white;
-  border-radius: 20px;
+  min-width: 0;
+}
+
+
+.productWindow {
+  width: 100%;
+  height: 100%;
+
+  min-height: 75px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
 
   background:
     linear-gradient(
-      to bottom,
       #ffffff,
-      #e9fbff
+      #e8faff
     );
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  border:
+    5px solid white;
 
-  cursor: pointer;
+  border-radius: 19px;
+
+  font-size:
+    clamp(43px, 7vw, 72px);
 
   box-shadow:
-    inset 0 -8px 0 rgba(0,0,0,0.05),
-    0 5px 0 rgba(0,0,0,0.15);
+    inset
+    0 -7px 0
+    rgba(0,0,0,0.05),
+
+    0 5px 0
+    rgba(0,0,0,0.15);
 
   transition:
-    transform .12s,
-    background .12s;
+    transform 0.1s;
 }
 
-.product:active {
-  transform: scale(.91);
+
+.productButton:active
+.productWindow {
+  transform:
+    scale(0.88);
 }
 
-.productEmoji {
-  font-size: clamp(42px, 7vw, 72px);
 
-  filter: drop-shadow(0 5px 2px rgba(0,0,0,.13));
-}
-
-.productLight {
+.littleButton {
   position: absolute;
 
-  width: 12px;
-  height: 12px;
-
-  right: 7px;
   top: 7px;
+  right: 7px;
 
-  background: #77dd77;
+  width: 13px;
+  height: 13px;
 
   border-radius: 50%;
 
-  box-shadow: 0 0 6px #77dd77;
+  background: #64d86f;
+
+  box-shadow:
+    0 0 7px
+    #64d86f;
 }
 
-.product.flash {
-  animation: productFlash .4s;
+
+.productButton.flash
+.productWindow {
+  animation:
+    productFlash
+    0.45s;
 }
+
 
 @keyframes productFlash {
 
@@ -420,82 +591,106 @@ button {
   }
 
   50% {
-    background: #fff39b;
-    transform: scale(1.08);
+    background: #fff09b;
+
+    transform:
+      scale(1.08);
   }
 
   100% {
     background: white;
   }
-
 }
 
 
-/* ==============================
+/* =====================================
    자판기 아래
-============================== */
+===================================== */
 
-.machineBottom {
+#machineBottom {
   height: 20%;
 
-  min-height: 68px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  gap: 20px;
+  min-height: 70px;
 
   padding-top: 8px;
-}
-
-.coinSlot {
-  width: 55px;
-  height: 55px;
-
-  background: #333;
-
-  border-radius: 12px;
 
   display: flex;
-  justify-content: center;
-  align-items: center;
 
+  align-items: center;
+  justify-content: center;
+
+  gap: 25px;
+}
+
+
+#coinPart {
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+}
+
+
+.coinPicture {
   font-size: 32px;
 }
 
-#dropSlot {
-  width: 55%;
-  height: 58px;
 
-  background: #302a35;
+.coinHole {
+  width: 12px;
+  height: 28px;
 
-  border: 6px solid #8f2944;
+  background: #343038;
 
-  border-radius: 15px;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  overflow: hidden;
+  border-radius: 8px;
 }
 
-#fallingItem {
+
+#deliveryDoor {
+  width: 55%;
+  height: 60px;
+
+  overflow: hidden;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  background: #2b2931;
+
+  border:
+    6px solid #992d4a;
+
+  border-radius: 15px;
+}
+
+
+#deliveryItem {
   font-size: 48px;
 
   opacity: 0;
 }
 
-.dropAnimation {
-  animation: dropItem .65s ease-out;
+
+.drop {
+  animation:
+    itemDrop
+    0.6s
+    ease-out
+    forwards;
 }
 
-@keyframes dropItem {
+
+@keyframes itemDrop {
 
   0% {
-    transform: translateY(-100px) scale(.6);
     opacity: 0;
+
+    transform:
+      translateY(-80px)
+      scale(0.6);
   }
 
   50% {
@@ -503,381 +698,465 @@ button {
   }
 
   100% {
-    transform: translateY(0) scale(1);
     opacity: 1;
-  }
 
+    transform:
+      translateY(0)
+      scale(1);
+  }
 }
 
 
-/* ==============================
-   아래 상태
-============================== */
+/* =====================================
+   아래 안내
+===================================== */
 
 #bottomArea {
   height: 16%;
 
-  min-height: 90px;
+  min-height: 85px;
+
+  padding:
+    4px 15px
+    max(8px, env(safe-area-inset-bottom));
 
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
 
-  padding: 5px 15px;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
 }
 
-#messageBox {
+
+#guideBox {
+  padding:
+    8px 20px;
+
   background: white;
 
-  border-radius: 22px;
+  border-radius: 25px;
 
-  padding: 7px 20px;
+  box-shadow:
+    0 5px 0
+    rgba(0,0,0,0.1);
 
-  font-size: clamp(18px, 3vw, 28px);
+  font-size:
+    clamp(18px, 3vw, 28px);
 
-  box-shadow: 0 4px 0 rgba(0,0,0,.1);
+  font-weight: bold;
 }
 
-#messageEmoji {
+
+#guideEmoji {
   font-size: 30px;
 }
 
-#messageText {
-  margin-left: 5px;
-}
 
-#collectedOrder {
+#pickedItems {
   height: 45px;
 
-  margin-top: 4px;
+  margin-top: 5px;
 
-  font-size: 36px;
+  font-size: 38px;
 
-  letter-spacing: 6px;
+  letter-spacing: 7px;
 }
 
 
-/* ==============================
-   팝업
-============================== */
+/* =====================================
+   꾸미기 버튼
+===================================== */
 
-.popup {
+#dressOpenButton {
+  position: fixed;
+
+  right: 16px;
+
+  bottom:
+    max(
+      15px,
+      env(safe-area-inset-bottom)
+    );
+
+  z-index: 50;
+
+  width: 72px;
+  height: 72px;
+
+  border: 0;
+
+  border-radius: 50%;
+
+  background: white;
+
+  font-size: 40px;
+
+  box-shadow:
+    0 7px 0
+    rgba(0,0,0,0.18);
+}
+
+
+#dressOpenButton:active {
+  transform:
+    translateY(4px);
+}
+
+
+/* =====================================
+   팝업
+===================================== */
+
+.overlay {
   position: fixed;
 
   inset: 0;
 
   z-index: 100;
 
-  background: rgba(37, 70, 93, .55);
-
   display: flex;
+
   align-items: center;
   justify-content: center;
 
   padding: 20px;
+
+  background:
+    rgba(25,65,90,0.58);
 }
+
 
 .hidden {
   display: none !important;
 }
 
-.popupCard {
-  width: min(520px, 90vw);
 
-  background: white;
-
-  border-radius: 35px;
+.popup {
+  width:
+    min(520px, 91vw);
 
   padding: 25px;
 
   text-align: center;
 
-  box-shadow: 0 15px 0 rgba(0,0,0,.18);
+  background: white;
 
-  animation: popupIn .3s ease-out;
+  border-radius: 35px;
+
+  box-shadow:
+    0 15px 0
+    rgba(0,0,0,0.17);
+
+  animation:
+    popupAppear
+    0.25s
+    ease-out;
 }
 
-@keyframes popupIn {
+
+@keyframes popupAppear {
 
   from {
-    transform: scale(.5) rotate(-5deg);
     opacity: 0;
+
+    transform:
+      scale(0.6);
   }
 
   to {
-    transform: scale(1) rotate(0);
     opacity: 1;
-  }
 
+    transform:
+      scale(1);
+  }
 }
 
-.bigPenguin {
+
+/* 성공 */
+
+#happyPenguin {
   font-size: 120px;
 
-  animation: happyDance .5s infinite alternate;
+  animation:
+    happyDance
+    0.45s
+    alternate
+    infinite;
 }
+
 
 @keyframes happyDance {
 
   from {
-    transform: rotate(-10deg) translateY(0);
+    transform:
+      rotate(-9deg)
+      translateY(0);
   }
 
   to {
-    transform: rotate(10deg) translateY(-10px);
+    transform:
+      rotate(9deg)
+      translateY(-12px);
   }
-
 }
 
-.bigStars {
-  font-size: 55px;
 
-  margin: 10px;
+.starParty {
+  font-size: 52px;
+
+  margin: 5px;
 }
 
-.rewardItem {
-  font-size: 70px;
 
-  margin: 10px;
+#rewardPicture {
+  font-size: 65px;
+
+  margin: 5px 0 15px;
 }
 
-.bigButton {
-  border: none;
 
-  min-width: 120px;
+#nextButton,
+#dressCloseButton {
+  min-width: 130px;
 
-  padding: 14px 30px;
+  padding: 12px 30px;
 
-  border-radius: 25px;
+  border: 0;
 
-  background: #5bcf87;
+  border-radius: 27px;
+
+  background: #62d68c;
 
   font-size: 45px;
 
-  box-shadow: 0 7px 0 #339e5a;
-}
-
-.bigButton:active {
-  transform: translateY(5px);
-  box-shadow: 0 2px 0 #339e5a;
+  box-shadow:
+    0 7px 0
+    #329b59;
 }
 
 
-/* ==============================
+#nextButton:active,
+#dressCloseButton:active {
+  transform:
+    translateY(5px);
+
+  box-shadow:
+    0 2px 0
+    #329b59;
+}
+
+
+/* =====================================
    꾸미기
-============================== */
+===================================== */
 
-#dressButton {
-  position: fixed;
-
-  right: 16px;
-  bottom: 16px;
-
-  width: 70px;
-  height: 70px;
-
-  border: none;
-  border-radius: 50%;
-
-  background: #fff;
-
-  font-size: 38px;
-
-  box-shadow: 0 6px 0 rgba(0,0,0,.18);
-
-  z-index: 40;
+.dressTitle {
+  font-size: 45px;
 }
 
-.dressPenguin {
-  position: relative;
 
+#dressPenguin {
   display: inline-block;
+
+  position: relative;
 
   font-size: 130px;
 }
 
-#dressPreview {
+
+#dressAccessory {
   position: absolute;
 
-  top: -15px;
   left: 50%;
+  top: -15px;
 
-  transform: translateX(-50%);
+  transform:
+    translateX(-50%);
 
-  font-size: 48px;
+  font-size: 50px;
 }
 
-.dressChoices {
+
+#dressChoices {
+  margin: 15px 0 20px;
+
   display: grid;
 
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns:
+    repeat(3, 1fr);
 
   gap: 10px;
-
-  margin: 20px 0;
 }
 
-.dressItem {
-  border: 4px solid #cdefff;
+
+.dressChoice {
+  height: 75px;
+
+  border:
+    4px solid #c4ebfa;
+
+  border-radius: 20px;
 
   background: #effbff;
 
-  border-radius: 18px;
-
-  height: 75px;
-
-  font-size: 42px;
+  font-size: 43px;
 }
 
 
-/* ==============================
+.dressChoice:active {
+  transform:
+    scale(0.9);
+}
+
+
+/* =====================================
    미니게임
-============================== */
+===================================== */
 
-.miniTitle {
-  font-size: 70px;
+#miniGameTitle {
+  font-size: 65px;
 
-  margin-bottom: 15px;
+  margin-bottom: 12px;
 }
 
-#miniArea {
+
+#miniGameArea {
   position: relative;
 
   width: 100%;
   height: 300px;
 
-  background: #dff8ff;
+  overflow: hidden;
+
+  background: #dff7ff;
 
   border-radius: 25px;
 
-  overflow: hidden;
+  border:
+    5px solid #b8eafa;
 }
 
-.snowPatch {
+
+.snowTarget {
   position: absolute;
 
-  width: 90px;
-  height: 90px;
+  width: 85px;
+  height: 85px;
 
-  border: none;
+  border: 0;
+
   border-radius: 50%;
 
   background: white;
 
   font-size: 45px;
 
-  box-shadow: 0 5px 0 rgba(0,0,0,.12);
+  box-shadow:
+    0 5px 0
+    rgba(0,0,0,0.12);
 }
 
-.miniCoin {
+
+.coinTarget {
   position: absolute;
 
-  border: none;
+  border: 0;
+
   background: transparent;
 
   font-size: 65px;
 
-  animation: coinBounce .8s infinite alternate;
+  animation:
+    coinJump
+    0.7s
+    alternate
+    infinite;
 }
 
-@keyframes coinBounce {
+
+@keyframes coinJump {
 
   from {
-    transform: translateY(0);
+    transform:
+      translateY(0)
+      rotate(-8deg);
   }
 
   to {
-    transform: translateY(-12px);
+    transform:
+      translateY(-15px)
+      rotate(8deg);
   }
-
 }
 
-.escapeFish {
+
+.fishTarget {
   position: absolute;
 
-  border: none;
+  border: 0;
+
   background: transparent;
 
   font-size: 70px;
 
-  animation: fishMove 2s infinite alternate ease-in-out;
+  animation:
+    fishRun
+    2.2s
+    ease-in-out
+    infinite
+    alternate;
 }
 
-@keyframes fishMove {
+
+@keyframes fishRun {
 
   from {
-    left: 5%;
-    transform: rotate(-5deg);
+    left: 3%;
+
+    transform:
+      rotate(-5deg);
   }
 
   to {
-    left: 70%;
-    transform: rotate(5deg);
-  }
+    left: 72%;
 
+    transform:
+      rotate(5deg);
+  }
 }
 
 
-/* ==============================
-   작은 화면 대응
-============================== */
-
-@media (max-height: 720px) {
-
-  .topBar {
-    min-height: 50px;
-  }
-
-  #customerArea {
-    min-height: 120px;
-  }
-
-  .customer {
-    font-size: 75px;
-  }
-
-  #speechBubble {
-    min-height: 55px;
-  }
-
-  #orderIcons {
-    font-size: 36px;
-  }
-
-  #machine {
-    padding: 7px;
-  }
-
-  .productEmoji {
-    font-size: 42px;
-  }
-
-  #bottomArea {
-    min-height: 70px;
-  }
-
-}
-
-
-/* iPad 가로모드 */
+/* =====================================
+   iPad 가로 화면
+===================================== */
 
 @media (orientation: landscape) {
 
   #game {
     display: grid;
 
-    grid-template-columns: 34% 66%;
-    grid-template-rows: 11% 72% 17%;
+    grid-template-columns:
+      34% 66%;
+
+    grid-template-rows:
+      11% 73% 16%;
   }
 
-  .topBar {
-    grid-column: 1 / 3;
+
+  #topBar {
+    grid-column:
+      1 / 3;
+
+    grid-row: 1;
+
     height: 100%;
   }
 
+
   #customerArea {
     grid-column: 1;
+
     grid-row: 2;
 
     height: 100%;
@@ -885,22 +1164,70 @@ button {
     align-items: center;
   }
 
-  #machineArea {
+
+  #vendingArea {
     grid-column: 2;
+
     grid-row: 2;
 
     height: 100%;
   }
 
+
   #bottomArea {
-    grid-column: 1 / 3;
+    grid-column:
+      1 / 3;
+
     grid-row: 3;
 
     height: 100%;
   }
 
-  #machine {
-    max-width: 700px;
+
+  #vendingMachine {
+    max-width: 720px;
+  }
+}
+
+
+/* =====================================
+   세로가 짧은 화면
+===================================== */
+
+@media (max-height: 720px) {
+
+  #topBar {
+    min-height: 50px;
+  }
+
+  #customerArea {
+    min-height: 115px;
+  }
+
+  #customerCharacter {
+    font-size: 75px;
+  }
+
+  #orderBubble {
+    min-height: 55px;
+  }
+
+  #orderPictures {
+    font-size: 37px;
+  }
+
+  #vendingMachine {
+    padding: 7px;
+  }
+
+  .productWindow {
+    min-height: 55px;
+
+    font-size: 40px;
+  }
+
+  #bottomArea {
+    min-height: 65px;
   }
 
 }
