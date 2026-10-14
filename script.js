@@ -1,1395 +1,760 @@
+
 "use strict";
 
-/* =====================================================
-   🐧 펭귄 자판기
-   script.js
-===================================================== */
+// ========================================
+// 아준이의 레일댄스 콘서트
+// ========================================
 
+const VEHICLES = [
+  // 고속열차
+  {id:"ktx1", name:"KTX 산천", emoji:"🚄", type:"high"},
+  {id:"ktx2", name:"KTX 청룡", emoji:"🚅", type:"high"},
+  {id:"ktx3", name:"KTX-1", emoji:"🚄", type:"high"},
+  {id:"srt", name:"SRT", emoji:"🚄", type:"high"},
+  {id:"srt2", name:"SRT 320", emoji:"🚅", type:"high"},
+  {id:"haemu", name:"해무", emoji:"🚄", type:"high"},
 
-/* =====================================================
-   게임 데이터
-===================================================== */
+  // 일반열차
+  {id:"mugunghwa", name:"무궁화호", emoji:"🚃", type:"normal"},
+  {id:"cdc", name:"무궁화 CDC", emoji:"🚞", type:"normal"},
+  {id:"saemaeul", name:"새마을호", emoji:"🚆", type:"normal"},
+  {id:"itxsae", name:"ITX 새마을", emoji:"🚆", type:"normal"},
+  {id:"itxmaeum", name:"ITX 마음", emoji:"🚈", type:"normal"},
+  {id:"itxchun", name:"ITX 청춘", emoji:"🚆", type:"normal"},
+  {id:"nuriro", name:"누리로", emoji:"🚃", type:"normal"},
+  {id:"mugunghwa2", name:"무궁화 객차", emoji:"🚋", type:"normal"},
 
-const ITEMS = {
+  // 지하철과 전동열차
+  {id:"line1", name:"수도권 1호선", emoji:"🚇", type:"metro"},
+  {id:"line2", name:"서울 2호선", emoji:"🚇", type:"metro"},
+  {id:"line3", name:"서울 3호선", emoji:"🚇", type:"metro"},
+  {id:"line4", name:"서울 4호선", emoji:"🚇", type:"metro"},
+  {id:"line5", name:"서울 5호선", emoji:"🚇", type:"metro"},
+  {id:"line6", name:"서울 6호선", emoji:"🚇", type:"metro"},
+  {id:"line7", name:"서울 7호선", emoji:"🚇", type:"metro"},
+  {id:"line8", name:"서울 8호선", emoji:"🚇", type:"metro"},
+  {id:"line9", name:"서울 9호선", emoji:"🚇", type:"metro"},
+  {id:"airport", name:"공항철도", emoji:"🚈", type:"metro"},
+  {id:"ui", name:"우이신설선", emoji:"🚝", type:"metro"},
+  {id:"shinbundang", name:"신분당선", emoji:"🚇", type:"metro"},
+  {id:"gimhae", name:"부산김해경전철", emoji:"🚝", type:"metro"},
+  {id:"busan", name:"부산 1호선", emoji:"🚇", type:"metro"},
+  {id:"incheon", name:"인천 1호선", emoji:"🚇", type:"metro"},
+  {id:"gtx", name:"GTX-A", emoji:"🚄", type:"metro"},
 
-  fish: {
-    emoji: "🐟",
-    korean: "물고기"
-  },
-
-  juice: {
-    emoji: "🧃",
-    korean: "주스"
-  },
-
-  icecream: {
-    emoji: "🍦",
-    korean: "아이스크림"
-  },
-
-  cookie: {
-    emoji: "🍪",
-    korean: "쿠키"
-  },
-
-  strawberry: {
-    emoji: "🍓",
-    korean: "딸기"
-  },
-
-  milk: {
-    emoji: "🥛",
-    korean: "우유"
-  },
-
-  apple: {
-    emoji: "🍎",
-    korean: "사과"
-  },
-
-  cake: {
-    emoji: "🧁",
-    korean: "케이크"
-  }
-
-};
-
-
-const CUSTOMERS = [
-  "🐧",
-  "🐧",
-  "🐧",
-  "🦭",
-  "🐻‍❄️"
+  // 토미카 스타일 자동차
+  {id:"police", name:"토미카 경찰차", emoji:"🚓", type:"car"},
+  {id:"fire", name:"토미카 소방차", emoji:"🚒", type:"car"},
+  {id:"ambulance", name:"토미카 구급차", emoji:"🚑", type:"car"},
+  {id:"tow", name:"견인차", emoji:"🚚", type:"car"},
+  {id:"taxi", name:"토미카 택시", emoji:"🚕", type:"car"},
+  {id:"bus", name:"토미카 버스", emoji:"🚌", type:"car"},
+  {id:"race", name:"레이싱카", emoji:"🏎️", type:"car"},
+  {id:"truck", name:"덤프트럭", emoji:"🚛", type:"car"},
+  {id:"excavator", name:"굴착기", emoji:"🚜", type:"car"},
+  {id:"car", name:"승용차", emoji:"🚗", type:"car"}
 ];
 
-
-const RANDOM_HATS = [
-  "",
-  "",
-  "",
-  "🎀",
-  "🧢",
-  "👑"
+const SONGS = [
+  {id:"uiu", title:"우이우하하", emoji:"🎵"},
+  {id:"gangnam", title:"강남스타일", emoji:"🕺"},
+  {id:"danza", title:"단자로카", emoji:"🎶"},
+  {id:"party", title:"펭귄 댄스파티", emoji:"🐧"},
+  {id:"train", title:"기차 디스코", emoji:"🚄"},
+  {id:"hero", title:"히어로 댄스", emoji:"🚓"}
 ];
 
-
-const REWARDS = [
-  "🎀",
-  "👑",
-  "🌸",
-  "🌈",
-  "🎈",
-  "💎",
-  "🍭",
-  "🧸"
+const STAGES = [
+  {id:"rainbow", title:"무지개 콘서트", emoji:"🌈"},
+  {id:"city", title:"도시 야경", emoji:"🌃"},
+  {id:"space", title:"우주 공연장", emoji:"🚀"},
+  {id:"snow", title:"눈꽃 축제", emoji:"❄️"},
+  {id:"lava", title:"불꽃 콘서트", emoji:"🔥"}
 ];
 
-
-/* =====================================================
-   게임 상태
-===================================================== */
-
-let score = 0;
-
-let completedOrders = 0;
-
-let currentOrder = [];
-
-let pickedItems = [];
-
-let gameLocked = false;
-
-let soundEnabled = true;
-
-let chosenDress = "";
-
-
-/* =====================================================
-   HTML 요소
-===================================================== */
-
-const scoreElement =
-  document.getElementById("score");
-
-
-const orderPictures =
-  document.getElementById("orderPictures");
-
-
-const customerCharacter =
-  document.getElementById("customerCharacter");
-
-
-const customerHat =
-  document.getElementById("customerHat");
-
-
-const guideEmoji =
-  document.getElementById("guideEmoji");
-
-
-const guideText =
-  document.getElementById("guideText");
-
-
-const pickedItemsElement =
-  document.getElementById("pickedItems");
-
-
-const deliveryItem =
-  document.getElementById("deliveryItem");
-
-
-const soundButton =
-  document.getElementById("soundButton");
-
-
-const successScreen =
-  document.getElementById("successScreen");
-
-
-const rewardPicture =
-  document.getElementById("rewardPicture");
-
-
-const nextButton =
-  document.getElementById("nextButton");
-
-
-const dressOpenButton =
-  document.getElementById("dressOpenButton");
-
-
-const dressScreen =
-  document.getElementById("dressScreen");
-
-
-const dressAccessory =
-  document.getElementById("dressAccessory");
-
-
-const dressCloseButton =
-  document.getElementById("dressCloseButton");
-
-
-const miniGameScreen =
-  document.getElementById("miniGameScreen");
-
-
-const miniGameTitle =
-  document.getElementById("miniGameTitle");
-
-
-const miniGameArea =
-  document.getElementById("miniGameArea");
-
-
-const productButtons =
-  document.querySelectorAll(".productButton");
-
-
-const dressChoices =
-  document.querySelectorAll(".dressChoice");
-
-
-/* =====================================================
-   랜덤 함수
-===================================================== */
-
-function randomItem(array) {
-
-  const index =
-    Math.floor(
-      Math.random() * array.length
-    );
-
-  return array[index];
-
-}
-
-
-function shuffled(array) {
-
-  const copy =
-    [...array];
-
-
-  for (
-    let i = copy.length - 1;
-    i > 0;
-    i--
-  ) {
-
-    const j =
-      Math.floor(
-        Math.random() * (i + 1)
-      );
-
-    [
-      copy[i],
-      copy[j]
-    ] =
-    [
-      copy[j],
-      copy[i]
-    ];
-
-  }
-
-
-  return copy;
-
-}
-
-
-/* =====================================================
-   음성
-===================================================== */
-
-function speak(text) {
-
-  if (!soundEnabled) {
-    return;
-  }
-
-
-  if (
-    !("speechSynthesis" in window)
-  ) {
-
-    return;
-
-  }
-
-
-  window.speechSynthesis.cancel();
-
-
-  const speech =
-    new SpeechSynthesisUtterance(
-      text
-    );
-
-
-  speech.lang =
-    "ko-KR";
-
-
-  speech.rate =
-    0.9;
-
-
-  speech.pitch =
-    1.15;
-
-
-  window.speechSynthesis.speak(
-    speech
-  );
-
-}
-
-
-/* =====================================================
-   소리 버튼
-===================================================== */
-
-soundButton.addEventListener(
-  "click",
-  function () {
-
-    soundEnabled =
-      !soundEnabled;
-
-
-    if (soundEnabled) {
-
-      soundButton.textContent =
-        "🔊";
-
-      speak(
-        "소리가 켜졌어요!"
-      );
-
-    }
-
-    else {
-
-      soundButton.textContent =
-        "🔇";
-
-      window.speechSynthesis.cancel();
-
-    }
-
-  }
-);
-
-
-/* =====================================================
-   새 손님
-===================================================== */
-
-function makeNewCustomer() {
-
-  gameLocked =
-    false;
-
-
-  pickedItems =
-    [];
-
-
-  pickedItemsElement.textContent =
-    "";
-
-
-  deliveryItem.textContent =
-    "";
-
-
-  deliveryItem.style.opacity =
-    "0";
-
-
-  /*
-    손님 랜덤
-  */
-
-  customerCharacter.textContent =
-    randomItem(CUSTOMERS);
-
-
-  /*
-    꾸미기를 선택했다면
-    그것을 우선 사용
-  */
-
-  if (chosenDress) {
-
-    customerHat.textContent =
-      chosenDress;
-
-  }
-
-  else {
-
-    customerHat.textContent =
-      randomItem(RANDOM_HATS);
-
-  }
-
-
-  /*
-    주문 개수
-
-    처음에는 무조건 1개.
-
-    3번 이상 성공하면
-    가끔 2개 주문.
-  */
-
-  let orderCount = 1;
-
-
-  if (
-    completedOrders >= 3 &&
-    Math.random() < 0.45
-  ) {
-
-    orderCount = 2;
-
-  }
-
-
-  const keys =
-    shuffled(
-      Object.keys(ITEMS)
-    );
-
-
-  currentOrder =
-    keys.slice(
-      0,
-      orderCount
-    );
-
-
-  showOrder();
-
-
-  guideEmoji.textContent =
-    "👀";
-
-
-  guideText.textContent =
-    "같은 그림을 찾아봐!";
-
-
-  /*
-    주문 음성
-  */
-
-  const orderNames =
-    currentOrder.map(
-      function (key) {
-
-        return ITEMS[key].korean;
-
-      }
-    );
-
-
-  setTimeout(
-    function () {
-
-      if (
-        currentOrder.length === 1
-      ) {
-
-        speak(
-          orderNames[0] +
-          " 주세요!"
-        );
-
-      }
-
-      else {
-
-        speak(
-          orderNames[0] +
-          " 그리고 " +
-          orderNames[1] +
-          " 주세요!"
-        );
-
-      }
-
-    },
-    500
-  );
-
-}
-
-
-/* =====================================================
-   주문 그림 표시
-===================================================== */
-
-function showOrder() {
-
-  orderPictures.innerHTML =
-    "";
-
-
-  currentOrder.forEach(
-    function (itemKey) {
-
-      const picture =
-        document.createElement(
-          "span"
-        );
-
-
-      picture.textContent =
-        ITEMS[itemKey].emoji;
-
-
-      orderPictures.appendChild(
-        picture
-      );
-
-    }
-  );
-
-}
-
-
-/* =====================================================
-   자판기 상품 클릭
-===================================================== */
-
-productButtons.forEach(
-  function (button) {
-
-    button.addEventListener(
-      "click",
-      function () {
-
-        if (gameLocked) {
-          return;
-        }
-
-
-        const itemKey =
-          button.getAttribute(
-            "data-item"
-          );
-
-
-        flashProduct(
-          button
-        );
-
-
-        dropProduct(
-          itemKey
-        );
-
-
-        checkProduct(
-          itemKey
-        );
-
-      }
-    );
-
-  }
-);
-
-
-/* =====================================================
-   상품 버튼 반짝임
-===================================================== */
-
-function flashProduct(button) {
-
-  button.classList.remove(
-    "flash"
-  );
-
-
-  void button.offsetWidth;
-
-
-  button.classList.add(
-    "flash"
-  );
-
-}
-
-
-/* =====================================================
-   상품 떨어지기
-===================================================== */
-
-function dropProduct(itemKey) {
-
-  deliveryItem.classList.remove(
-    "drop"
-  );
-
-
-  void deliveryItem.offsetWidth;
-
-
-  deliveryItem.textContent =
-    ITEMS[itemKey].emoji;
-
-
-  deliveryItem.style.opacity =
-    "1";
-
-
-  deliveryItem.classList.add(
-    "drop"
-  );
-
-}
-
-
-/* =====================================================
-   상품 정답 확인
-===================================================== */
-
-function checkProduct(itemKey) {
-
-  /*
-    아직 고르지 않은
-    주문 목록 만들기
-  */
-
-  const remaining =
-    [...currentOrder];
-
-
-  pickedItems.forEach(
-    function (picked) {
-
-      const index =
-        remaining.indexOf(
-          picked
-        );
-
-
-      if (index !== -1) {
-
-        remaining.splice(
-          index,
-          1
-        );
-
-      }
-
-    }
-  );
-
-
-  /*
-    정답
-  */
-
-  if (
-    remaining.includes(
-      itemKey
-    )
-  ) {
-
-    pickedItems.push(
-      itemKey
-    );
-
-
-    showPickedItems();
-
-
-    guideEmoji.textContent =
-      "👍";
-
-
-    guideText.textContent =
-      "좋아!";
-
-
-    speak(
-      ITEMS[itemKey].korean +
-      "! 좋아요!"
-    );
-
-
-    /*
-      모든 주문 완료
-    */
-
-    if (
-      pickedItems.length ===
-      currentOrder.length
-    ) {
-
-      setTimeout(
-        completeOrder,
-        450
-      );
-
-    }
-
-  }
-
-  /*
-    오답
-  */
-
-  else {
-
-    wrongAnswer();
-
-  }
-
-}
-
-
-/* =====================================================
-   선택한 상품 표시
-===================================================== */
-
-function showPickedItems() {
-
-  pickedItemsElement.textContent =
-    pickedItems
-      .map(
-        function (key) {
-
-          return ITEMS[key].emoji;
-
-        }
+const MISSIONS = [
+  {
+    text:"고속열차 2대와 경찰차 1대를 출연시켜라!",
+    check: list =>
+      list.filter(v => v.type === "high").length === 2 &&
+      list.some(v => v.id === "police")
+  },
+  {
+    text:"무궁화호를 가운데 2번 무대에 배치하라!",
+    check: list => list[1] && list[1].id === "mugunghwa"
+  },
+  {
+    text:"서로 다른 고속열차 3대로 공연하라!",
+    check: list => list.length === 3 &&
+      list.every(v => v.type === "high")
+  },
+  {
+    text:"지하철 2대와 소방차 1대를 출연시켜라!",
+    check: list =>
+      list.filter(v => v.type === "metro").length === 2 &&
+      list.some(v => v.id === "fire")
+  },
+  {
+    text:"KTX 청룡, SRT, 무궁화호를 함께 출연시켜라!",
+    check: list =>
+      ["ktx2","srt","mugunghwa"].every(
+        id => list.some(v => v.id === id)
       )
-      .join(" ");
+  },
+  {
+    text:"토미카 특수차량 3대로 공연하라!",
+    check: list =>
+      ["police","fire","ambulance"].every(
+        id => list.some(v => v.id === id)
+      )
+  },
+  {
+    text:"우이신설선을 첫 번째 출연진으로 배치하라!",
+    check: list => list[0] && list[0].id === "ui"
+  },
+  {
+    text:"일반열차 1대, 지하철 1대, 자동차 1대를 출연시켜라!",
+    check: list =>
+      ["normal","metro","car"].every(
+        type => list.some(v => v.type === type)
+      )
+  },
+  {
+    text:"ITX 마음과 ITX 청춘을 함께 출연시켜라!",
+    check: list =>
+      ["itxmaeum","itxchun"].every(
+        id => list.some(v => v.id === id)
+      )
+  },
+  {
+    text:"경찰차를 맨 마지막 3번 무대에 배치하라!",
+    check: list => list[2] && list[2].id === "police"
+  },
+  {
+    text:"부산김해경전철과 KTX 산천을 함께 출연시켜라!",
+    check: list =>
+      ["gimhae","ktx1"].every(
+        id => list.some(v => v.id === id)
+      )
+  },
+  {
+    text:"자동차 1대와 기차 2대를 조합하라!",
+    check: list =>
+      list.filter(v => v.type === "car").length === 1 &&
+      list.filter(v => v.type !== "car").length === 2
+  }
+];
 
+const SURPRISES = [
+  {
+    title:"💡 무대 조명이 꺼졌어요!",
+    text:"공연 기획자는 어떻게 해야 할까요?",
+    choices:[
+      "🔧 안전하게 조명 담당자 부르기",
+      "💥 조명 기계 때리기",
+      "🙈 그냥 모른 척하기",
+      "🚀 무대에서 뛰어내리기"
+    ],
+    correct:0
+  },
+  {
+    title:"🚄 기차가 무대 위치를 잊었어요!",
+    text:"기차 3대가 안전하게 공연하려면?",
+    choices:[
+      "📍 정해진 위치로 안내하기",
+      "💨 아무 데나 달리게 하기",
+      "🚧 서로 부딪히게 하기",
+      "🙈 그냥 기다리기"
+    ],
+    correct:0
+  },
+  {
+    title:"🎤 마이크가 고장 났어요!",
+    text:"어떻게 공연을 계속할까요?",
+    choices:[
+      "🎤 예비 마이크 사용하기",
+      "💦 마이크에 물 붓기",
+      "🗑️ 모두 버리기",
+      "😴 공연장에 눕기"
+    ],
+    correct:0
+  },
+  {
+    title:"🚓 경찰차가 늦게 도착했어요!",
+    text:"공연 순서를 어떻게 관리할까요?",
+    choices:[
+      "📋 출연 순서 다시 확인하기",
+      "🏎️ 무대에서 과속하기",
+      "❌ 다른 차량 밀어내기",
+      "🙈 손님 무시하기"
+    ],
+    correct:0
+  },
+  {
+    title:"🎉 관객들이 앙코르를 외쳐요!",
+    text:"기획자는 어떤 선택을 할까요?",
+    choices:[
+      "🎶 앙코르 댄스 준비하기",
+      "😠 관객에게 화내기",
+      "🔌 갑자기 전원 끄기",
+      "🚪 관객을 밀어내기"
+    ],
+    correct:0
+  },
+  {
+    title:"🌧️ 공연장에 비가 와요!",
+    text:"안전하게 공연을 계속하려면?",
+    choices:[
+      "🏠 실내 무대로 이동하기",
+      "⚡ 젖은 전선 만지기",
+      "💦 물을 더 뿌리기",
+      "🏃 무대에서 달리기"
+    ],
+    correct:0
+  }
+];
+
+const $ = id => document.getElementById(id);
+
+let lineup = [];
+let selectedSong = SONGS[0];
+let selectedStage = STAGES[0];
+let currentMission = null;
+let currentCategory = "all";
+
+let stars = 0;
+let shows = 0;
+let elapsed = 0;
+let playing = false;
+let currentDance = "bounce";
+let surpriseSolved = false;
+let surpriseTriggered = false;
+let missionCompleted = false;
+
+let timerId = null;
+let noteId = null;
+let surpriseTimeout = null;
+
+function randomItem(items) {
+  return items[Math.floor(Math.random() * items.length)];
 }
 
+function shuffle(items) {
+  const result = [...items];
 
-/* =====================================================
-   틀렸을 때
-===================================================== */
+  for (let i = result.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [result[i], result[j]] = [result[j], result[i]];
+  }
 
-function wrongAnswer() {
+  return result;
+}
 
-  guideEmoji.textContent =
-    "🐧";
+function init() {
+  bindButtons();
+  newMission();
+  renderVehicles();
+  renderLineup();
+  renderSongs();
+  renderStages();
+  updateStats();
+}
 
+function bindButtons() {
+  $("newMissionBtn").addEventListener("click", newMission);
+  $("randomLineupBtn").addEventListener("click", randomLineup);
+  $("clearLineupBtn").addEventListener("click", clearLineup);
+  $("startShowBtn").addEventListener("click", startShow);
+  $("backBtn").addEventListener("click", returnToSetup);
+  $("pauseBtn").addEventListener("click", togglePause);
+  $("finishBtn").addEventListener("click", finishShow);
+  $("againBtn").addEventListener("click", nextShow);
 
-  guideText.textContent =
-    "다시 찾아봐!";
+  document.querySelectorAll(".tab").forEach(button => {
+    button.addEventListener("click", () => {
+      currentCategory = button.dataset.category;
 
+      document.querySelectorAll(".tab").forEach(tab => {
+        tab.classList.toggle("active", tab === button);
+      });
 
-  speak(
-    "앗! 다른 그림을 찾아볼까요?"
+      renderVehicles();
+    });
+  });
+
+  document.querySelectorAll(".dance-btn").forEach(button => {
+    button.addEventListener("click", () => {
+      changeDance(button.dataset.dance);
+    });
+  });
+}
+
+function updateStats() {
+  $("starCount").textContent = "⭐ " + stars;
+  $("showCount").textContent = "🎤 " + shows + "회";
+}
+
+// ========================================
+// 공연 미션
+// ========================================
+
+function newMission() {
+  const candidates = MISSIONS.filter(
+    mission => mission !== currentMission
   );
 
+  currentMission = randomItem(candidates);
+  $("missionText").textContent = currentMission.text;
+}
 
-  customerCharacter.animate(
+function checkMission() {
+  return currentMission && currentMission.check(lineup);
+}
 
-    [
-      {
-        transform:
-          "rotate(-10deg)"
-      },
+// ========================================
+// 차량 선택
+// ========================================
 
-      {
-        transform:
-          "rotate(10deg)"
-      },
+function renderVehicles() {
+  const grid = $("vehicleGrid");
+  grid.innerHTML = "";
 
-      {
-        transform:
-          "rotate(-7deg)"
-      },
+  const visible = VEHICLES.filter(vehicle =>
+    currentCategory === "all" ||
+    vehicle.type === currentCategory
+  );
 
-      {
-        transform:
-          "rotate(0deg)"
-      }
-    ],
+  visible.forEach(vehicle => {
+    const selected = lineup.some(v => v.id === vehicle.id);
 
-    {
-      duration: 450
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "vehicle-card" +
+      (selected ? " selected" : "");
+
+    const emoji = document.createElement("span");
+    emoji.className = "vehicle-emoji";
+    emoji.textContent = vehicle.emoji;
+
+    const name = document.createElement("span");
+    name.className = "vehicle-name";
+    name.textContent = vehicle.name;
+
+    button.append(emoji, name);
+    button.addEventListener("click", () => selectVehicle(vehicle));
+
+    grid.appendChild(button);
+  });
+}
+
+function selectVehicle(vehicle) {
+  const index = lineup.findIndex(v => v.id === vehicle.id);
+
+  if (index >= 0) {
+    lineup.splice(index, 1);
+  } else {
+    if (lineup.length >= 3) {
+      $("setupMessage").textContent =
+        "출연진은 3대까지예요! 먼저 한 대를 빼 주세요.";
+      return;
     }
 
-  );
+    lineup.push(vehicle);
+  }
 
+  $("setupMessage").textContent = "";
+  renderVehicles();
+  renderLineup();
 }
 
+function renderLineup() {
+  const container = $("lineup");
+  container.innerHTML = "";
 
-/* =====================================================
-   주문 성공
-===================================================== */
+  for (let i = 0; i < 3; i++) {
+    const vehicle = lineup[i];
+    const slot = document.createElement("div");
 
-function completeOrder() {
+    if (vehicle) {
+      slot.className = "lineup-slot";
 
-  if (gameLocked) {
+      const number = document.createElement("span");
+      number.className = "slot-number";
+      number.textContent = (i + 1) + "번 출연진";
+
+      const emoji = document.createElement("span");
+      emoji.className = "vehicle-emoji";
+      emoji.textContent = vehicle.emoji;
+
+      const name = document.createElement("span");
+      name.textContent = vehicle.name;
+
+      slot.append(number, emoji, name);
+    } else {
+      slot.className = "empty-slot";
+      slot.textContent = (i + 1) + "번 출연진";
+    }
+
+    container.appendChild(slot);
+  }
+}
+
+function randomLineup() {
+  lineup = shuffle(VEHICLES).slice(0, 3);
+  $("setupMessage").textContent = "";
+  renderVehicles();
+  renderLineup();
+}
+
+function clearLineup() {
+  lineup = [];
+  $("setupMessage").textContent = "";
+  renderVehicles();
+  renderLineup();
+}
+
+// ========================================
+// 노래와 무대
+// ========================================
+
+function renderSongs() {
+  const container = $("songChoices");
+  container.innerHTML = "";
+
+  SONGS.forEach(song => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "choice-card" +
+      (selectedSong.id === song.id ? " active" : "");
+
+    button.textContent = song.emoji + " " + song.title;
+
+    button.addEventListener("click", () => {
+      selectedSong = song;
+      renderSongs();
+    });
+
+    container.appendChild(button);
+  });
+}
+
+function renderStages() {
+  const container = $("stageChoices");
+  container.innerHTML = "";
+
+  STAGES.forEach(stage => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "choice-card" +
+      (selectedStage.id === stage.id ? " active" : "");
+
+    button.textContent = stage.emoji + " " + stage.title;
+
+    button.addEventListener("click", () => {
+      selectedStage = stage;
+      renderStages();
+    });
+
+    container.appendChild(button);
+  });
+}
+
+// ========================================
+// 공연 시작
+// ========================================
+
+function startShow() {
+  if (lineup.length !== 3) {
+    $("setupMessage").textContent =
+      "🚄 출연진 3대를 모두 선택해야 공연할 수 있어요!";
     return;
   }
 
+  missionCompleted = checkMission();
+  surpriseSolved = false;
+  surpriseTriggered = false;
+  elapsed = 0;
+  playing = true;
+  currentDance = "bounce";
 
-  gameLocked =
-    true;
+  $("setupScreen").classList.add("hidden");
+  $("showScreen").classList.remove("hidden");
+  $("surpriseBox").classList.add("hidden");
 
+  $("showSongTitle").textContent =
+    selectedSong.emoji + " " + selectedSong.title;
 
-  completedOrders++;
+  $("showStageTitle").textContent = selectedStage.title;
+  $("stage").className = "stage " + selectedStage.id;
 
+  $("showStatus").textContent = "🎉 신나는 공연 시작!";
+  $("showTimer").textContent = "00:00";
+  $("pauseBtn").textContent = "⏸️ 일시정지";
 
-  /*
-    두 개 주문은 별 2개
-  */
+  renderPerformers();
+  changeDance("bounce");
 
-  if (
-    currentOrder.length === 2
-  ) {
+  clearTimers();
 
-    score += 2;
+  timerId = setInterval(() => {
+    if (!playing) return;
 
-  }
+    elapsed++;
+    updateTimer();
 
-  else {
-
-    score += 1;
-
-  }
-
-
-  scoreElement.textContent =
-    score;
-
-
-  guideEmoji.textContent =
-    "⭐";
-
-
-  guideText.textContent =
-    "성공!";
-
-
-  speak(
-    "딩동댕! 잘했어요!"
-  );
-
-
-  customerCharacter.animate(
-
-    [
-      {
-        transform:
-          "translateY(0) rotate(-8deg)"
-      },
-
-      {
-        transform:
-          "translateY(-20px) rotate(8deg)"
-      },
-
-      {
-        transform:
-          "translateY(0) rotate(-8deg)"
-      }
-    ],
-
-    {
-      duration: 700
+    // 자동으로 춤 변경
+    if (elapsed % 5 === 0) {
+      changeDance(randomItem([
+        "bounce","sway","spin","wave","shuffle"
+      ]));
     }
 
-  );
-
-
-  setTimeout(
-    showSuccessScreen,
-    650
-  );
-
-}
-
-
-/* =====================================================
-   성공 화면
-===================================================== */
-
-function showSuccessScreen() {
-
-  rewardPicture.textContent =
-    randomItem(REWARDS);
-
-
-  successScreen.classList.remove(
-    "hidden"
-  );
-
-}
-
-
-/* =====================================================
-   다음 버튼
-===================================================== */
-
-nextButton.addEventListener(
-  "click",
-  function () {
-
-    successScreen.classList.add(
-      "hidden"
-    );
-
-
-    /*
-      2회 이상 성공 후
-      35% 확률 미니게임
-    */
-
+    // 공연 중 한 번 돌발 미션
     if (
-      completedOrders >= 2 &&
-      Math.random() < 0.35
+      elapsed >= 12 &&
+      !surpriseTriggered &&
+      Math.random() < 0.45
     ) {
-
-      startMiniGame();
-
+      showSurprise();
     }
 
-    else {
-
-      makeNewCustomer();
-
+    if (elapsed >= 40 && !surpriseTriggered) {
+      showSurprise();
     }
+  }, 1000);
 
-  }
-);
+  noteId = setInterval(() => {
+    if (playing) createMusicNote();
+  }, 300);
 
+  window.scrollTo(0, 0);
+}
 
-/* =====================================================
-   꾸미기 열기
-===================================================== */
+function renderPerformers() {
+  const container = $("performers");
+  container.innerHTML = "";
 
-dressOpenButton.addEventListener(
-  "click",
-  function () {
+  lineup.forEach((vehicle, index) => {
+    const performer = document.createElement("div");
+    performer.className = "performer bounce";
+    performer.dataset.index = index;
 
-    dressAccessory.textContent =
-      chosenDress;
+    const emoji = document.createElement("div");
+    emoji.className = "performer-vehicle";
+    emoji.textContent = vehicle.emoji;
 
+    const name = document.createElement("div");
+    name.className = "performer-name";
+    name.textContent = vehicle.name;
 
-    dressScreen.classList.remove(
-      "hidden"
+    performer.append(emoji, name);
+    container.appendChild(performer);
+  });
+}
+
+function changeDance(dance) {
+  currentDance = dance;
+
+  document.querySelectorAll(".performer").forEach(performer => {
+    performer.className = "performer " + dance;
+  });
+
+  document.querySelectorAll(".dance-btn").forEach(button => {
+    button.classList.toggle(
+      "active",
+      button.dataset.dance === dance
     );
+  });
 
-  }
-);
+  const labels = {
+    bounce:"⬆️ 통통 점프 댄스!",
+    sway:"↔️ 좌우로 흔들흔들!",
+    spin:"🔄 빙글빙글 댄스!",
+    wave:"🌊 신나는 파도타기!",
+    shuffle:"🎲 깜짝 랜덤 댄스!"
+  };
 
+  $("showStatus").textContent = labels[dance];
+}
 
-/* =====================================================
-   꾸미기 선택
-===================================================== */
+function createMusicNote() {
+  const container = $("musicNotes");
 
-dressChoices.forEach(
-  function (button) {
+  if (container.childElementCount > 25) return;
 
-    button.addEventListener(
-      "click",
-      function () {
+  const note = document.createElement("span");
+  note.className = "note";
+  note.textContent = randomItem(["🎵","🎶","♪","♫","✨","💖"]);
 
-        chosenDress =
-          button.getAttribute(
-            "data-dress"
-          );
+  note.style.left = (5 + Math.random() * 85) + "%";
+  note.style.animationDuration =
+    (2 + Math.random() * 2) + "s";
 
+  container.appendChild(note);
 
-        dressAccessory.textContent =
-          chosenDress;
+  setTimeout(() => {
+    note.remove();
+  }, 4200);
+}
 
+function updateTimer() {
+  const minutes = Math.floor(elapsed / 60);
+  const seconds = elapsed % 60;
 
-        customerHat.textContent =
-          chosenDress;
+  $("showTimer").textContent =
+    String(minutes).padStart(2, "0") +
+    ":" +
+    String(seconds).padStart(2, "0");
+}
 
+// ========================================
+// 공연 중 돌발 미션
+// ========================================
 
-        speak(
-          "멋져요!"
-        );
+function showSurprise() {
+  surpriseTriggered = true;
+  playing = false;
 
+  const event = randomItem(SURPRISES);
+
+  $("surpriseBox").classList.remove("hidden");
+  $("surpriseTitle").textContent = event.title;
+  $("surpriseText").textContent = event.text;
+  $("showStatus").textContent = "⚠️ 공연 긴급 미션!";
+
+  const container = $("surpriseChoices");
+  container.innerHTML = "";
+
+  const options = shuffle(
+    event.choices.map((text, index) => ({
+      text,
+      correct: index === event.correct
+    }))
+  );
+
+  options.forEach(option => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "surprise-choice";
+    button.textContent = option.text;
+
+    button.addEventListener("click", () => {
+      if (option.correct) {
+        surpriseSolved = true;
+        $("surpriseBox").classList.add("hidden");
+        $("showStatus").textContent =
+          "🌟 문제 해결! 공연을 계속해요!";
+        playing = true;
+        $("pauseBtn").textContent = "⏸️ 일시정지";
+      } else {
+        $("surpriseText").textContent =
+          "🤔 조금 더 생각해 봐요! 안전한 방법을 골라 주세요.";
       }
-    );
+    });
 
-  }
-);
-
-
-/* =====================================================
-   꾸미기 닫기
-===================================================== */
-
-dressCloseButton.addEventListener(
-  "click",
-  function () {
-
-    dressScreen.classList.add(
-      "hidden"
-    );
-
-  }
-);
-
-
-/* =====================================================
-   미니게임 선택
-===================================================== */
-
-function startMiniGame() {
-
-  const miniGames = [
-
-    snowGame,
-
-    coinGame,
-
-    fishGame
-
-  ];
-
-
-  const selectedGame =
-    randomItem(
-      miniGames
-    );
-
-
-  selectedGame();
-
+    container.appendChild(button);
+  });
 }
 
-
-/* =====================================================
-   미니게임 1
-   눈 치우기
-===================================================== */
-
-function snowGame() {
-
-  miniGameArea.innerHTML =
-    "";
-
-
-  miniGameTitle.textContent =
-    "❄️ 👆";
-
-
-  miniGameScreen.classList.remove(
-    "hidden"
-  );
-
-
-  speak(
-    "눈이 쌓였어요! 눈을 모두 눌러 주세요!"
-  );
-
-
-  let snowCount = 5;
-
-
-  for (
-    let i = 0;
-    i < 5;
-    i++
-  ) {
-
-    const snow =
-      document.createElement(
-        "button"
-      );
-
-
-    snow.className =
-      "snowTarget";
-
-
-    snow.textContent =
-      "❄️";
-
-
-    snow.style.left =
-      (
-        5 +
-        Math.random() * 70
-      ) + "%";
-
-
-    snow.style.top =
-      (
-        5 +
-        Math.random() * 60
-      ) + "%";
-
-
-    snow.addEventListener(
-      "click",
-      function () {
-
-        snow.remove();
-
-
-        snowCount--;
-
-
-        if (
-          snowCount === 0
-        ) {
-
-          finishMiniGame();
-
-        }
-
-      }
-    );
-
-
-    miniGameArea.appendChild(
-      snow
-    );
-
+function togglePause() {
+  if (!$("surpriseBox").classList.contains("hidden")) {
+    return;
   }
 
+  playing = !playing;
+
+  $("pauseBtn").textContent =
+    playing ? "⏸️ 일시정지" : "▶️ 계속 공연";
+
+  $("showStatus").textContent =
+    playing ? "🎉 공연을 계속합니다!" : "⏸️ 잠시 쉬는 시간!";
 }
 
+// ========================================
+// 공연 결과
+// ========================================
 
-/* =====================================================
-   미니게임 2
-   동전 찾기
-===================================================== */
+function finishShow() {
+  clearTimers();
+  playing = false;
 
-function coinGame() {
+  shows++;
 
-  miniGameArea.innerHTML =
-    "";
+  let earned = 1;
+  let messages = [];
 
-
-  miniGameTitle.textContent =
-    "👀 🪙";
-
-
-  miniGameScreen.classList.remove(
-    "hidden"
-  );
-
-
-  speak(
-    "동전이 떨어졌어요! 동전을 찾아 주세요!"
-  );
-
-
-  const fakePictures = [
-    "❄️",
-    "⭐",
-    "🧤",
-    "🧣",
-    "🧊",
-    "🐚"
-  ];
-
-
-  /*
-    가짜 그림
-  */
-
-  for (
-    let i = 0;
-    i < 9;
-    i++
-  ) {
-
-    const fake =
-      document.createElement(
-        "div"
-      );
-
-
-    fake.textContent =
-      randomItem(
-        fakePictures
-      );
-
-
-    fake.style.position =
-      "absolute";
-
-
-    fake.style.fontSize =
-      "50px";
-
-
-    fake.style.left =
-      (
-        Math.random() * 80
-      ) + "%";
-
-
-    fake.style.top =
-      (
-        Math.random() * 70
-      ) + "%";
-
-
-    miniGameArea.appendChild(
-      fake
-    );
-
+  if (missionCompleted) {
+    earned += 2;
+    messages.push("📋 공연 기획 미션 성공! +2⭐");
+  } else {
+    messages.push("📋 이번 미션은 다음에 다시 도전!");
   }
 
+  if (surpriseSolved) {
+    earned += 1;
+    messages.push("🔧 돌발 미션 해결! +1⭐");
+  }
 
-  /*
-    진짜 동전
-  */
+  if (elapsed >= 20) {
+    earned += 1;
+    messages.push("🎶 멋진 공연 진행! +1⭐");
+  }
 
-  const coin =
-    document.createElement(
-      "button"
-    );
+  stars += earned;
+  updateStats();
 
+  $("resultText").textContent =
+    lineup.map(v => v.name).join(" · ") +
+    "\n\n" +
+    selectedSong.title + " 공연 완료!\n\n" +
+    messages.join("\n") +
+    "\n\n이번 공연 보상: ⭐ " + earned + "개";
 
-  coin.className =
-    "coinTarget";
+  $("resultStars").textContent =
+    "⭐".repeat(Math.min(earned, 5));
 
-
-  coin.textContent =
-    "🪙";
-
-
-  coin.style.left =
-    (
-      5 +
-      Math.random() * 75
-    ) + "%";
-
-
-  coin.style.top =
-    (
-      5 +
-      Math.random() * 60
-    ) + "%";
-
-
-  coin.addEventListener(
-    "click",
-    function () {
-
-      coin.remove();
-
-      finishMiniGame();
-
-    }
-  );
-
-
-  miniGameArea.appendChild(
-    coin
-  );
-
+  $("resultOverlay").classList.remove("hidden");
 }
 
-
-/* =====================================================
-   미니게임 3
-   물고기 잡기
-===================================================== */
-
-function fishGame() {
-
-  miniGameArea.innerHTML =
-    "";
-
-
-  miniGameTitle.textContent =
-    "🐟 💨";
-
-
-  miniGameScreen.classList.remove(
-    "hidden"
-  );
-
-
-  speak(
-    "앗! 물고기가 도망갔어요! 잡아 주세요!"
-  );
-
-
-  const fish =
-    document.createElement(
-      "button"
-    );
-
-
-  fish.className =
-    "fishTarget";
-
-
-  fish.textContent =
-    "🐟";
-
-
-  fish.style.top =
-    (
-      15 +
-      Math.random() * 50
-    ) + "%";
-
-
-  fish.addEventListener(
-    "click",
-    function () {
-
-      fish.remove();
-
-      finishMiniGame();
-
-    }
-  );
-
-
-  miniGameArea.appendChild(
-    fish
-  );
-
+function nextShow() {
+  $("resultOverlay").classList.add("hidden");
+  returnToSetup();
+  newMission();
+  clearLineup();
 }
 
+function returnToSetup() {
+  clearTimers();
+  playing = false;
 
-/* =====================================================
-   미니게임 성공
-===================================================== */
+  $("resultOverlay").classList.add("hidden");
+  $("surpriseBox").classList.add("hidden");
+  $("showScreen").classList.add("hidden");
+  $("setupScreen").classList.remove("hidden");
 
-function finishMiniGame() {
-
-  score++;
-
-
-  scoreElement.textContent =
-    score;
-
-
-  miniGameTitle.textContent =
-    "🐧 ⭐ 🐧";
-
-
-  speak(
-    "성공! 별 하나를 받았어요!"
-  );
-
-
-  setTimeout(
-    function () {
-
-      miniGameScreen.classList.add(
-        "hidden"
-      );
-
-
-      makeNewCustomer();
-
-    },
-    1000
-  );
-
+  $("musicNotes").innerHTML = "";
+  window.scrollTo(0, 0);
 }
 
+function clearTimers() {
+  if (timerId !== null) {
+    clearInterval(timerId);
+    timerId = null;
+  }
 
-/* =====================================================
-   게임 시작
-===================================================== */
+  if (noteId !== null) {
+    clearInterval(noteId);
+    noteId = null;
+  }
 
-function startGame() {
-
-  scoreElement.textContent =
-    score;
-
-
-  guideEmoji.textContent =
-    "👆";
-
-
-  guideText.textContent =
-    "같은 그림을 찾아봐!";
-
-
-  makeNewCustomer();
-
-
-  console.log(
-    "🐧 펭귄 자판기 게임 시작!"
-  );
-
+  if (surpriseTimeout !== null) {
+    clearTimeout(surpriseTimeout);
+    surpriseTimeout = null;
+  }
 }
 
+// ========================================
+// 실행
+// ========================================
 
-/*
-  HTML이 모두 로딩된 뒤 실행
-*/
-
-if (
-  document.readyState === "loading"
-) {
-
-  document.addEventListener(
-    "DOMContentLoaded",
-    startGame
-  );
-
-}
-
-else {
-
-  startGame();
-
-}
+document.addEventListener("DOMContentLoaded", init);
