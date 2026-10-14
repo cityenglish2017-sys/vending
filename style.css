@@ -1,1233 +1,654 @@
-/* =====================================
-   기본 설정
-===================================== */
+
+:root {
+  --bg: #eef5ff;
+  --ink: #192b4c;
+  --blue: #2879db;
+  --purple: #6948c7;
+  --yellow: #ffdc61;
+}
 
 * {
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
-  user-select: none;
 }
 
-html,
-body {
+html, body {
   margin: 0;
-  padding: 0;
-
+  min-height: 100%;
   width: 100%;
-  height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont,
+    "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+}
 
-  overflow: hidden;
-
-  font-family:
-    Arial,
-    "Apple SD Gothic Neo",
-    sans-serif;
-
-  background: #bcecff;
+body {
+  color: var(--ink);
+  background: linear-gradient(145deg, #e8f7ff, #f7edff);
+  overscroll-behavior: none;
 }
 
 button {
-  font-family: inherit;
+  font: inherit;
+  border: 0;
   cursor: pointer;
   touch-action: manipulation;
 }
 
-
-/* =====================================
-   전체 게임
-===================================== */
-
-#game {
-  width: 100vw;
-  height: 100vh;
-  height: 100dvh;
-
-  overflow: hidden;
-
-  position: relative;
-
-  background:
-    linear-gradient(
-      to bottom,
-      #91dcff 0%,
-      #d9f6ff 45%,
-      #f6fdff 45%,
-      #e7faff 100%
-    );
+button:disabled {
+  opacity: .45;
+  cursor: not-allowed;
 }
-
-
-/* =====================================
-   상단
-===================================== */
-
-#topBar {
-  height: 9%;
-
-  min-height: 65px;
-
-  display: flex;
-
-  align-items: center;
-  justify-content: space-between;
-
-  padding:
-    max(7px, env(safe-area-inset-top))
-    20px
-    5px
-    20px;
-
-  background:
-    rgba(255,255,255,0.85);
-
-  border-radius:
-    0 0 28px 28px;
-
-  position: relative;
-
-  z-index: 20;
-}
-
-
-.topPenguin {
-  font-size:
-    clamp(34px, 5vw, 50px);
-}
-
-
-#starBox {
-  background: white;
-
-  border-radius: 30px;
-
-  padding: 7px 20px;
-
-  font-size:
-    clamp(25px, 4vw, 38px);
-
-  font-weight: bold;
-
-  box-shadow:
-    0 5px 0
-    rgba(0,0,0,0.12);
-}
-
-
-.circleButton {
-  width: 58px;
-  height: 58px;
-
-  border: 0;
-
-  border-radius: 50%;
-
-  background: white;
-
-  font-size: 29px;
-
-  box-shadow:
-    0 5px 0
-    rgba(0,0,0,0.15);
-}
-
-
-.circleButton:active {
-  transform:
-    translateY(3px);
-
-  box-shadow:
-    0 2px 0
-    rgba(0,0,0,0.15);
-}
-
-
-/* =====================================
-   손님
-===================================== */
-
-#customerArea {
-  height: 24%;
-
-  min-height: 160px;
-
-  display: flex;
-
-  justify-content: center;
-  align-items: flex-end;
-
-  position: relative;
-}
-
-
-#customerBox {
-  position: relative;
-
-  display: flex;
-
-  flex-direction: column;
-
-  align-items: center;
-
-  z-index: 5;
-}
-
-
-/* 주문 말풍선 */
-
-#orderBubble {
-  min-width: 140px;
-
-  min-height: 75px;
-
-  padding: 8px 18px;
-
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-
-  background: white;
-
-  border:
-    5px solid #357cad;
-
-  border-radius: 28px;
-
-  box-shadow:
-    0 5px 0
-    rgba(0,0,0,0.12);
-
-  position: relative;
-}
-
-
-#orderBubble::after {
-  content: "";
-
-  position: absolute;
-
-  bottom: -20px;
-
-  left: 50%;
-
-  transform:
-    translateX(-50%);
-
-  border-left:
-    15px solid transparent;
-
-  border-right:
-    15px solid transparent;
-
-  border-top:
-    20px solid #357cad;
-}
-
-
-#orderPictures {
-  font-size:
-    clamp(40px, 6vw, 62px);
-
-  letter-spacing: 6px;
-}
-
-
-/* 캐릭터 */
-
-#customerCharacter {
-  font-size:
-    clamp(80px, 14vw, 135px);
-
-  line-height: 1;
-
-  margin-top: 8px;
-
-  filter:
-    drop-shadow(
-      0 6px 2px
-      rgba(0,0,0,0.15)
-    );
-
-  animation:
-    penguinIdle
-    1.5s
-    ease-in-out
-    infinite;
-}
-
-
-@keyframes penguinIdle {
-
-  0%,
-  100% {
-    transform:
-      translateY(0)
-      rotate(-3deg);
-  }
-
-  50% {
-    transform:
-      translateY(-6px)
-      rotate(3deg);
-  }
-}
-
-
-#customerHat {
-  position: absolute;
-
-  top: 77px;
-
-  left: 50%;
-
-  transform:
-    translateX(-50%);
-
-  font-size:
-    clamp(32px, 5vw, 50px);
-
-  z-index: 10;
-}
-
-
-/* =====================================
-   배경 장식
-===================================== */
-
-.cloud {
-  position: absolute;
-
-  font-size: 45px;
-
-  opacity: 0.8;
-}
-
-.cloud1 {
-  left: 6%;
-  top: 15%;
-}
-
-.cloud2 {
-  right: 7%;
-  top: 32%;
-}
-
-
-.iceDecoration {
-  position: absolute;
-
-  font-size: 28px;
-
-  animation:
-    snowMove
-    4s
-    linear
-    infinite;
-}
-
-.ice1 {
-  left: 20%;
-  top: 0;
-}
-
-.ice2 {
-  right: 20%;
-  top: 10%;
-
-  animation-delay: 2s;
-}
-
-
-@keyframes snowMove {
-
-  from {
-    transform:
-      translateY(-20px)
-      rotate(0deg);
-  }
-
-  to {
-    transform:
-      translateY(180px)
-      rotate(360deg);
-  }
-}
-
-
-/* =====================================
-   자판기 영역
-===================================== */
-
-#vendingArea {
-  height: 51%;
-
-  padding: 5px 14px;
-
-  display: flex;
-
-  justify-content: center;
-  align-items: center;
-}
-
-
-#vendingMachine {
-  width:
-    min(700px, 95vw);
-
-  height: 100%;
-
-  max-height: 530px;
-
-  padding: 11px;
-
-  display: flex;
-
-  flex-direction: column;
-
-  background:
-    linear-gradient(
-      135deg,
-      #ff718c,
-      #ed496a
-    );
-
-  border:
-    8px solid #ad2e4a;
-
-  border-radius: 32px;
-
-  box-shadow:
-    0 10px 0 #86263c,
-    0 17px 20px
-    rgba(0,0,0,0.2);
-}
-
-
-/* 자판기 위 */
-
-#machineSign {
-  height: 12%;
-
-  min-height: 42px;
-
-  padding: 0 15px;
-
-  display: flex;
-
-  align-items: center;
-  justify-content: space-between;
-
-  font-size: 30px;
-}
-
-
-.signLights {
-  display: flex;
-
-  gap: 10px;
-}
-
-
-.signLights span {
-  width: 15px;
-  height: 15px;
-
-  border-radius: 50%;
-
-  background: #fff68a;
-
-  box-shadow:
-    0 0 12px
-    #fff000;
-
-  animation:
-    lightBlink
-    0.8s
-    alternate
-    infinite;
-}
-
-
-.signLights span:nth-child(2) {
-  animation-delay:
-    0.2s;
-}
-
-.signLights span:nth-child(3) {
-  animation-delay:
-    0.4s;
-}
-
-
-@keyframes lightBlink {
-
-  from {
-    opacity: 0.35;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
-
-/* =====================================
-   상품 진열
-===================================== */
-
-#products {
-  flex: 1;
-
-  display: grid;
-
-  grid-template-columns:
-    repeat(4, 1fr);
-
-  grid-template-rows:
-    repeat(2, 1fr);
-
-  gap: 9px;
-
-  padding: 10px;
-
-  background: #aeeaff;
-
-  border:
-    6px solid #78354a;
-
-  border-radius: 21px;
-}
-
-
-.productButton {
-  border: 0;
-
-  background: transparent;
-
-  padding: 0;
-
-  position: relative;
-
-  min-width: 0;
-}
-
-
-.productWindow {
-  width: 100%;
-  height: 100%;
-
-  min-height: 75px;
-
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-
-  background:
-    linear-gradient(
-      #ffffff,
-      #e8faff
-    );
-
-  border:
-    5px solid white;
-
-  border-radius: 19px;
-
-  font-size:
-    clamp(43px, 7vw, 72px);
-
-  box-shadow:
-    inset
-    0 -7px 0
-    rgba(0,0,0,0.05),
-
-    0 5px 0
-    rgba(0,0,0,0.15);
-
-  transition:
-    transform 0.1s;
-}
-
-
-.productButton:active
-.productWindow {
-  transform:
-    scale(0.88);
-}
-
-
-.littleButton {
-  position: absolute;
-
-  top: 7px;
-  right: 7px;
-
-  width: 13px;
-  height: 13px;
-
-  border-radius: 50%;
-
-  background: #64d86f;
-
-  box-shadow:
-    0 0 7px
-    #64d86f;
-}
-
-
-.productButton.flash
-.productWindow {
-  animation:
-    productFlash
-    0.45s;
-}
-
-
-@keyframes productFlash {
-
-  0% {
-    background: white;
-  }
-
-  50% {
-    background: #fff09b;
-
-    transform:
-      scale(1.08);
-  }
-
-  100% {
-    background: white;
-  }
-}
-
-
-/* =====================================
-   자판기 아래
-===================================== */
-
-#machineBottom {
-  height: 20%;
-
-  min-height: 70px;
-
-  padding-top: 8px;
-
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-
-  gap: 25px;
-}
-
-
-#coinPart {
-  display: flex;
-
-  flex-direction: column;
-
-  align-items: center;
-}
-
-
-.coinPicture {
-  font-size: 32px;
-}
-
-
-.coinHole {
-  width: 12px;
-  height: 28px;
-
-  background: #343038;
-
-  border-radius: 8px;
-}
-
-
-#deliveryDoor {
-  width: 55%;
-  height: 60px;
-
-  overflow: hidden;
-
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-
-  background: #2b2931;
-
-  border:
-    6px solid #992d4a;
-
-  border-radius: 15px;
-}
-
-
-#deliveryItem {
-  font-size: 48px;
-
-  opacity: 0;
-}
-
-
-.drop {
-  animation:
-    itemDrop
-    0.6s
-    ease-out
-    forwards;
-}
-
-
-@keyframes itemDrop {
-
-  0% {
-    opacity: 0;
-
-    transform:
-      translateY(-80px)
-      scale(0.6);
-  }
-
-  50% {
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 1;
-
-    transform:
-      translateY(0)
-      scale(1);
-  }
-}
-
-
-/* =====================================
-   아래 안내
-===================================== */
-
-#bottomArea {
-  height: 16%;
-
-  min-height: 85px;
-
-  padding:
-    4px 15px
-    max(8px, env(safe-area-inset-bottom));
-
-  display: flex;
-
-  flex-direction: column;
-
-  justify-content: center;
-  align-items: center;
-}
-
-
-#guideBox {
-  padding:
-    8px 20px;
-
-  background: white;
-
-  border-radius: 25px;
-
-  box-shadow:
-    0 5px 0
-    rgba(0,0,0,0.1);
-
-  font-size:
-    clamp(18px, 3vw, 28px);
-
-  font-weight: bold;
-}
-
-
-#guideEmoji {
-  font-size: 30px;
-}
-
-
-#pickedItems {
-  height: 45px;
-
-  margin-top: 5px;
-
-  font-size: 38px;
-
-  letter-spacing: 7px;
-}
-
-
-/* =====================================
-   꾸미기 버튼
-===================================== */
-
-#dressOpenButton {
-  position: fixed;
-
-  right: 16px;
-
-  bottom:
-    max(
-      15px,
-      env(safe-area-inset-bottom)
-    );
-
-  z-index: 50;
-
-  width: 72px;
-  height: 72px;
-
-  border: 0;
-
-  border-radius: 50%;
-
-  background: white;
-
-  font-size: 40px;
-
-  box-shadow:
-    0 7px 0
-    rgba(0,0,0,0.18);
-}
-
-
-#dressOpenButton:active {
-  transform:
-    translateY(4px);
-}
-
-
-/* =====================================
-   팝업
-===================================== */
-
-.overlay {
-  position: fixed;
-
-  inset: 0;
-
-  z-index: 100;
-
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-
-  padding: 20px;
-
-  background:
-    rgba(25,65,90,0.58);
-}
-
 
 .hidden {
   display: none !important;
 }
 
-
-.popup {
-  width:
-    min(520px, 91vw);
-
-  padding: 25px;
-
-  text-align: center;
-
-  background: white;
-
-  border-radius: 35px;
-
-  box-shadow:
-    0 15px 0
-    rgba(0,0,0,0.17);
-
-  animation:
-    popupAppear
-    0.25s
-    ease-out;
+#app {
+  min-height: 100dvh;
 }
 
-
-@keyframes popupAppear {
-
-  from {
-    opacity: 0;
-
-    transform:
-      scale(0.6);
-  }
-
-  to {
-    opacity: 1;
-
-    transform:
-      scale(1);
-  }
-}
-
-
-/* 성공 */
-
-#happyPenguin {
-  font-size: 120px;
-
-  animation:
-    happyDance
-    0.45s
-    alternate
-    infinite;
-}
-
-
-@keyframes happyDance {
-
-  from {
-    transform:
-      rotate(-9deg)
-      translateY(0);
-  }
-
-  to {
-    transform:
-      rotate(9deg)
-      translateY(-12px);
-  }
-}
-
-
-.starParty {
-  font-size: 52px;
-
-  margin: 5px;
-}
-
-
-#rewardPicture {
-  font-size: 65px;
-
-  margin: 5px 0 15px;
-}
-
-
-#nextButton,
-#dressCloseButton {
-  min-width: 130px;
-
-  padding: 12px 30px;
-
-  border: 0;
-
-  border-radius: 27px;
-
-  background: #62d68c;
-
-  font-size: 45px;
-
-  box-shadow:
-    0 7px 0
-    #329b59;
-}
-
-
-#nextButton:active,
-#dressCloseButton:active {
-  transform:
-    translateY(5px);
-
-  box-shadow:
-    0 2px 0
-    #329b59;
-}
-
-
-/* =====================================
-   꾸미기
-===================================== */
-
-.dressTitle {
-  font-size: 45px;
-}
-
-
-#dressPenguin {
-  display: inline-block;
-
-  position: relative;
-
-  font-size: 130px;
-}
-
-
-#dressAccessory {
-  position: absolute;
-
-  left: 50%;
-  top: -15px;
-
-  transform:
-    translateX(-50%);
-
-  font-size: 50px;
-}
-
-
-#dressChoices {
-  margin: 15px 0 20px;
-
-  display: grid;
-
-  grid-template-columns:
-    repeat(3, 1fr);
-
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   gap: 10px;
+  padding: max(12px, env(safe-area-inset-top)) 16px 12px;
+  background: #192a54;
+  color: white;
 }
 
-
-.dressChoice {
-  height: 75px;
-
-  border:
-    4px solid #c4ebfa;
-
-  border-radius: 20px;
-
-  background: #effbff;
-
-  font-size: 43px;
+.logo {
+  font-size: clamp(17px, 2.6vw, 26px);
+  font-weight: 950;
 }
 
-
-.dressChoice:active {
-  transform:
-    scale(0.9);
+.stats {
+  display: flex;
+  gap: 10px;
+  font-size: clamp(16px, 2.3vw, 23px);
+  font-weight: 900;
+  white-space: nowrap;
 }
 
+.screen {
+  max-width: 1250px;
+  margin: auto;
+  padding: 16px 16px max(28px, env(safe-area-inset-bottom));
+}
 
-/* =====================================
-   미니게임
-===================================== */
+.hero {
+  text-align: center;
+  padding: 15px 8px;
+}
 
-#miniGameTitle {
-  font-size: 65px;
+.hero-emoji {
+  font-size: clamp(48px, 8vw, 78px);
+}
 
+.hero h1 {
+  font-size: clamp(28px, 4.5vw, 45px);
+  margin: 12px 0;
+}
+
+.hero p, .hint {
+  font-size: clamp(17px, 2.2vw, 22px);
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.panel, .mission-box {
+  background: white;
+  border-radius: 22px;
+  padding: 18px;
+  margin: 14px 0;
+  box-shadow: 0 5px 0 rgba(48, 84, 142, .12);
+}
+
+.mission-box {
+  background: #fff1bd;
+  border: 3px solid #f5c84f;
+}
+
+.mission-box p {
+  font-size: clamp(20px, 2.7vw, 27px);
+  font-weight: 900;
+  line-height: 1.5;
+}
+
+.section-title {
+  font-size: clamp(22px, 3vw, 29px);
+  font-weight: 950;
   margin-bottom: 12px;
 }
 
+.category-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 15px;
+}
 
-#miniGameArea {
-  position: relative;
+.tab, .small-action {
+  background: #e8f0ff;
+  color: #234c86;
+  border-radius: 13px;
+  padding: 12px 16px;
+  font-size: clamp(16px, 2vw, 20px);
+  font-weight: 900;
+}
 
+.tab.active {
+  background: #316dd0;
+  color: white;
+}
+
+.vehicle-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 11px;
+}
+
+.vehicle-card {
+  background: #f4faff;
+  border: 3px solid #b6d7f5;
+  border-radius: 17px;
+  padding: 10px 5px;
+  min-height: 126px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  color: #183e68;
+}
+
+.vehicle-card.selected {
+  background: #fff0a7;
+  border-color: #efb51b;
+}
+
+.vehicle-emoji {
+  font-size: clamp(36px, 5vw, 59px);
+  line-height: 1.1;
+}
+
+.vehicle-name {
+  font-size: clamp(14px, 1.9vw, 20px);
+  font-weight: 950;
+  text-align: center;
+  line-height: 1.3;
+  word-break: keep-all;
+}
+
+.lineup {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.lineup-slot, .empty-slot {
+  border-radius: 17px;
+  min-height: 125px;
+  background: #e9f4ff;
+  border: 3px dashed #a3c6e7;
+  text-align: center;
+  padding: 12px 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  font-size: clamp(15px, 2vw, 20px);
+  font-weight: 900;
+}
+
+.lineup-slot .vehicle-emoji {
+  font-size: 48px;
+}
+
+.slot-number {
+  color: #4275ac;
+  font-size: 16px;
+}
+
+.button-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 13px;
+}
+
+.secondary-btn {
+  background: #dfeaff;
+  color: #1c477c;
+  border-radius: 14px;
+  padding: 13px 16px;
+  font-size: clamp(16px, 2.1vw, 22px);
+  font-weight: 900;
+}
+
+.button-row button {
+  flex: 1;
+}
+
+.choice-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.choice-card {
+  background: #f1f4ff;
+  border: 3px solid #c7d2f0;
+  border-radius: 18px;
+  min-height: 95px;
+  padding: 12px;
+  font-size: clamp(17px, 2.3vw, 24px);
+  font-weight: 900;
+  color: #243d75;
+}
+
+.choice-card.active {
+  background: #e5d8ff;
+  border-color: #8152e0;
+}
+
+.primary-btn {
+  background: linear-gradient(135deg, #ffd954, #ffae41);
+  color: #59350b;
+  border-radius: 18px;
+  padding: 19px 24px;
+  font-size: clamp(21px, 3vw, 29px);
+  font-weight: 950;
+  box-shadow: 0 5px 0 #d68a22;
+}
+
+#startShowBtn {
   width: 100%;
-  height: 300px;
+  min-height: 76px;
+  margin-top: 10px;
+}
 
+.setup-message {
+  text-align: center;
+  min-height: 26px;
+  color: #b53e42;
+  font-size: 20px;
+  font-weight: 850;
+}
+
+.show-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 13px;
+}
+
+#showSongTitle {
+  font-size: clamp(22px, 3vw, 32px);
+}
+
+.show-subtitle {
+  font-size: 18px;
+  font-weight: 750;
+}
+
+.stage {
+  position: relative;
+  height: clamp(280px, 43vw, 470px);
   overflow: hidden;
-
-  background: #dff7ff;
-
   border-radius: 25px;
-
-  border:
-    5px solid #b8eafa;
+  border: 7px solid #20234f;
+  isolation: isolate;
 }
 
+.stage.rainbow {
+  background: radial-gradient(circle at 50% 20%, #f6b9ff, #6258c8 65%, #252052);
+}
 
-.snowTarget {
+.stage.city {
+  background: linear-gradient(#13264e, #3862a1 70%, #182a51);
+}
+
+.stage.space {
+  background: radial-gradient(circle, #543b9c, #130e37 80%);
+}
+
+.stage.snow {
+  background: linear-gradient(#b8eaff, #69b6e8 75%, #d8f5ff);
+}
+
+.stage.lava {
+  background: linear-gradient(#5d1840, #de5d3d 80%, #632028);
+}
+
+.stage-lights {
   position: absolute;
+  inset: 8px 0 auto;
+  display: flex;
+  justify-content: space-around;
+  font-size: clamp(30px, 5vw, 53px);
+  animation: lightPulse 1.2s infinite alternate;
+}
 
-  width: 85px;
-  height: 85px;
+.stage-banner {
+  position: absolute;
+  top: 20%;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  color: #fff8a8;
+  font-size: clamp(17px, 3vw, 30px);
+  font-weight: 950;
+  text-shadow: 0 3px 12px #101040;
+  letter-spacing: 1px;
+}
 
-  border: 0;
+.performers {
+  position: absolute;
+  z-index: 3;
+  left: 3%;
+  right: 3%;
+  bottom: 18%;
+  height: 50%;
+  display: flex;
+  justify-content: space-around;
+  align-items: end;
+  gap: 4px;
+}
 
-  border-radius: 50%;
+.performer {
+  width: 32%;
+  max-width: 260px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: end;
+  transform-origin: center bottom;
+  will-change: transform;
+}
 
+.performer-vehicle {
+  font-size: clamp(56px, 11vw, 135px);
+  line-height: 1.2;
+  filter: drop-shadow(0 8px 3px rgba(0,0,0,.3));
+}
+
+.performer-name {
+  color: white;
+  background: rgba(10, 21, 49, .82);
+  border-radius: 11px;
+  padding: 6px 8px;
+  font-size: clamp(13px, 2vw, 21px);
+  font-weight: 950;
+  text-align: center;
+}
+
+.stage-floor {
+  position: absolute;
+  bottom: 10%;
+  left: 0;
+  right: 0;
+  height: 18%;
+  background: repeating-linear-gradient(
+    90deg,
+    #fbc755 0 45px,
+    #ff8e7d 45px 90px,
+    #72e3db 90px 135px
+  );
+  transform: perspective(250px) rotateX(30deg);
+  opacity: .85;
+}
+
+.audience {
+  position: absolute;
+  z-index: 5;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  font-size: clamp(23px, 4vw, 44px);
+  background: rgba(12,15,43,.8);
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.music-notes {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 4;
+}
+
+.note {
+  position: absolute;
+  bottom: 5%;
+  font-size: clamp(26px, 4vw, 48px);
+  animation: floatNote 3s linear forwards;
+  text-shadow: 0 0 8px white;
+}
+
+.show-info {
   background: white;
-
-  font-size: 45px;
-
-  box-shadow:
-    0 5px 0
-    rgba(0,0,0,0.12);
+  border-radius: 16px;
+  margin-top: 12px;
+  padding: 12px 16px;
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: clamp(18px, 2.5vw, 25px);
+  font-weight: 950;
 }
 
-
-.coinTarget {
-  position: absolute;
-
-  border: 0;
-
-  background: transparent;
-
-  font-size: 65px;
-
-  animation:
-    coinJump
-    0.7s
-    alternate
-    infinite;
+.dance-controls {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0,1fr));
+  gap: 8px;
+  margin-top: 13px;
 }
 
+.dance-btn {
+  background: #dce7ff;
+  border-radius: 14px;
+  min-height: 67px;
+  padding: 9px 4px;
+  color: #234878;
+  font-size: clamp(14px, 1.9vw, 20px);
+  font-weight: 900;
+}
 
-@keyframes coinJump {
+.dance-btn.active {
+  background: #ffdf7c;
+  color: #71440b;
+}
 
-  from {
-    transform:
-      translateY(0)
-      rotate(-8deg);
+.show-bottom {
+  display: flex;
+  gap: 12px;
+  margin-top: 15px;
+}
+
+.show-bottom button {
+  flex: 1;
+}
+
+.surprise-box {
+  margin-top: 14px;
+  background: #fff1c7;
+  border: 4px solid #f5c350;
+  border-radius: 20px;
+  padding: 17px;
+  text-align: center;
+}
+
+.surprise-box h2 {
+  font-size: 27px;
+}
+
+.surprise-box p {
+  font-size: 22px;
+  font-weight: 850;
+}
+
+.surprise-choices {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: 10px;
+}
+
+.surprise-choice {
+  background: white;
+  border: 3px solid #f1c46d;
+  border-radius: 13px;
+  min-height: 65px;
+  padding: 9px;
+  font-size: clamp(16px, 2vw, 21px);
+  font-weight: 900;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 14, 37, .75);
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.result-card {
+  background: white;
+  width: min(500px, 100%);
+  max-height: 90dvh;
+  overflow-y: auto;
+  border-radius: 27px;
+  padding: 25px;
+  text-align: center;
+}
+
+.result-icon {
+  font-size: 75px;
+}
+
+.result-card h2 {
+  font-size: 34px;
+}
+
+.result-card p {
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1.5;
+  white-space: pre-line;
+}
+
+.result-stars {
+  font-size: 43px;
+  margin: 14px 0;
+}
+
+.result-card .primary-btn {
+  width: 100%;
+}
+
+.performer.bounce {
+  animation: danceBounce .65s ease-in-out infinite;
+}
+
+.performer.sway {
+  animation: danceSway .8s ease-in-out infinite;
+}
+
+.performer.spin {
+  animation: danceSpin 1.7s ease-in-out infinite;
+}
+
+.performer.wave {
+  animation: danceWave 1.2s ease-in-out infinite;
+}
+
+.performer.shuffle {
+  animation: danceShuffle .9s ease-in-out infinite;
+}
+
+.performer:nth-child(2) {
+  animation-delay: -.25s;
+}
+
+.performer:nth-child(3) {
+  animation-delay: -.45s;
+}
+
+@keyframes danceBounce {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-35px) scale(1.07); }
+}
+
+@keyframes danceSway {
+  0%, 100% { transform: rotate(-12deg); }
+  50% { transform: rotate(12deg); }
+}
+
+@keyframes danceSpin {
+  0% { transform: rotate(-15deg) scale(.95); }
+  50% { transform: rotate(15deg) scale(1.08); }
+  100% { transform: rotate(-15deg) scale(.95); }
+}
+
+@keyframes danceWave {
+  0%, 100% { transform: translateY(0) rotate(-5deg); }
+  50% { transform: translateY(-28px) rotate(10deg); }
+}
+
+@keyframes danceShuffle {
+  0%, 100% { transform: translateX(-12px) rotate(-8deg); }
+  50% { transform: translateX(12px) rotate(8deg) translateY(-18px); }
+}
+
+@keyframes floatNote {
+  0% { transform: translateY(0) rotate(-20deg); opacity: 0; }
+  15% { opacity: 1; }
+  85% { opacity: 1; }
+  100% { transform: translateY(-360px) rotate(25deg); opacity: 0; }
+}
+
+@keyframes lightPulse {
+  from { opacity: .45; filter: brightness(.8); }
+  to { opacity: 1; filter: brightness(1.5); }
+}
+
+@media (max-width: 800px) {
+  .vehicle-grid {
+    grid-template-columns: repeat(3, minmax(0,1fr));
   }
 
-  to {
-    transform:
-      translateY(-15px)
-      rotate(8deg);
+  .dance-controls {
+    grid-template-columns: repeat(3, minmax(0,1fr));
   }
 }
 
-
-.fishTarget {
-  position: absolute;
-
-  border: 0;
-
-  background: transparent;
-
-  font-size: 70px;
-
-  animation:
-    fishRun
-    2.2s
-    ease-in-out
-    infinite
-    alternate;
-}
-
-
-@keyframes fishRun {
-
-  from {
-    left: 3%;
-
-    transform:
-      rotate(-5deg);
+@media (max-width: 500px) {
+  .screen {
+    padding: 10px 9px 25px;
   }
 
-  to {
-    left: 72%;
-
-    transform:
-      rotate(5deg);
-  }
-}
-
-
-/* =====================================
-   iPad 가로 화면
-===================================== */
-
-@media (orientation: landscape) {
-
-  #game {
-    display: grid;
-
-    grid-template-columns:
-      34% 66%;
-
-    grid-template-rows:
-      11% 73% 16%;
+  .panel {
+    padding: 12px;
   }
 
-
-  #topBar {
-    grid-column:
-      1 / 3;
-
-    grid-row: 1;
-
-    height: 100%;
+  .vehicle-card {
+    min-height: 112px;
   }
 
-
-  #customerArea {
-    grid-column: 1;
-
-    grid-row: 2;
-
-    height: 100%;
-
-    align-items: center;
+  .choice-grid {
+    grid-template-columns: repeat(2, minmax(0,1fr));
   }
 
-
-  #vendingArea {
-    grid-column: 2;
-
-    grid-row: 2;
-
-    height: 100%;
+  .stage {
+    height: 340px;
   }
 
-
-  #bottomArea {
-    grid-column:
-      1 / 3;
-
-    grid-row: 3;
-
-    height: 100%;
+  .show-bottom {
+    flex-direction: column;
   }
-
-
-  #vendingMachine {
-    max-width: 720px;
-  }
-}
-
-
-/* =====================================
-   세로가 짧은 화면
-===================================== */
-
-@media (max-height: 720px) {
-
-  #topBar {
-    min-height: 50px;
-  }
-
-  #customerArea {
-    min-height: 115px;
-  }
-
-  #customerCharacter {
-    font-size: 75px;
-  }
-
-  #orderBubble {
-    min-height: 55px;
-  }
-
-  #orderPictures {
-    font-size: 37px;
-  }
-
-  #vendingMachine {
-    padding: 7px;
-  }
-
-  .productWindow {
-    min-height: 55px;
-
-    font-size: 40px;
-  }
-
-  #bottomArea {
-    min-height: 65px;
-  }
-
 }
