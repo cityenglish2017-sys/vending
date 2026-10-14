@@ -1,332 +1,142 @@
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-  >
-
-  <meta name="apple-mobile-web-app-capable" content="yes">
-
-  <title>🐧 펭귄 자판기</title>
-
-  <link rel="stylesheet" href="style.css">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#171d42">
+  <title>아준이의 레일댄스 콘서트</title>
+  <link rel="stylesheet" href="./style.css">
+  <script src="./script.js" defer></script>
 </head>
-
 <body>
+  <main id="app">
+    <header class="topbar">
+      <div class="logo">🚄 아준이의 레일댄스 콘서트</div>
+      <div class="stats">
+        <span id="starCount">⭐ 0</span>
+        <span id="showCount">🎤 0회</span>
+      </div>
+    </header>
 
-<div id="game">
-
-  <!-- =========================
-       상단
-  ========================== -->
-  <header id="topBar">
-
-    <div class="topPenguin">
-      🐧
-    </div>
-
-    <div id="starBox">
-      ⭐ <span id="score">0</span>
-    </div>
-
-    <button id="soundButton" class="circleButton">
-      🔊
-    </button>
-
-  </header>
-
-
-  <!-- =========================
-       손님 영역
-  ========================== -->
-  <section id="customerArea">
-
-    <div class="cloud cloud1">☁️</div>
-    <div class="cloud cloud2">☁️</div>
-
-    <div class="iceDecoration ice1">❄️</div>
-    <div class="iceDecoration ice2">❄️</div>
-
-    <div id="customerBox">
-
-      <!-- 주문 말풍선 -->
-      <div id="orderBubble">
-        <div id="orderPictures">
-          🐟
-        </div>
+    <section id="setupScreen" class="screen">
+      <div class="hero">
+        <div class="hero-emoji">🚄 🚓 🚆</div>
+        <h1>오늘의 공연을 기획하자!</h1>
+        <p>출연진 3대를 뽑고, 노래와 무대를 정해 주세요.</p>
       </div>
 
-      <!-- 손님 -->
-      <div id="customerCharacter">
-        🐧
+      <div class="mission-box">
+        <div class="section-title">📋 오늘의 공연 미션</div>
+        <p id="missionText">미션을 준비하고 있어요.</p>
+        <button id="newMissionBtn" class="small-action">
+          🔄 다른 미션
+        </button>
       </div>
 
-      <div id="customerHat"></div>
+      <section class="panel">
+        <div class="section-title">🎭 1. 출연진 캐스팅</div>
+        <p class="hint">기차와 자동차를 3대 골라 주세요. 선택한 순서대로 무대에 올라가요.</p>
 
-    </div>
-
-  </section>
-
-
-  <!-- =========================
-       자판기
-  ========================== -->
-  <section id="vendingArea">
-
-    <div id="vendingMachine">
-
-      <!-- 자판기 간판 -->
-      <div id="machineSign">
-
-        <span>🐧</span>
-
-        <div class="signLights">
-          <span></span>
-          <span></span>
-          <span></span>
+        <div class="category-tabs">
+          <button class="tab active" data-category="all">전체</button>
+          <button class="tab" data-category="high">🚄 고속열차</button>
+          <button class="tab" data-category="normal">🚆 일반열차</button>
+          <button class="tab" data-category="metro">🚇 지하철</button>
+          <button class="tab" data-category="car">🚓 토미카</button>
         </div>
 
-        <span>⭐</span>
+        <div id="vehicleGrid" class="vehicle-grid"></div>
+      </section>
 
-      </div>
-
-
-      <!-- 상품 진열 -->
-      <div id="products">
-
-        <button class="productButton" data-item="fish">
-          <div class="productWindow">
-            🐟
-          </div>
-          <div class="littleButton"></div>
-        </button>
-
-
-        <button class="productButton" data-item="juice">
-          <div class="productWindow">
-            🧃
-          </div>
-          <div class="littleButton"></div>
-        </button>
-
-
-        <button class="productButton" data-item="icecream">
-          <div class="productWindow">
-            🍦
-          </div>
-          <div class="littleButton"></div>
-        </button>
-
-
-        <button class="productButton" data-item="cookie">
-          <div class="productWindow">
-            🍪
-          </div>
-          <div class="littleButton"></div>
-        </button>
-
-
-        <button class="productButton" data-item="strawberry">
-          <div class="productWindow">
-            🍓
-          </div>
-          <div class="littleButton"></div>
-        </button>
-
-
-        <button class="productButton" data-item="milk">
-          <div class="productWindow">
-            🥛
-          </div>
-          <div class="littleButton"></div>
-        </button>
-
-
-        <button class="productButton" data-item="apple">
-          <div class="productWindow">
-            🍎
-          </div>
-          <div class="littleButton"></div>
-        </button>
-
-
-        <button class="productButton" data-item="cake">
-          <div class="productWindow">
-            🧁
-          </div>
-          <div class="littleButton"></div>
-        </button>
-
-      </div>
-
-
-      <!-- 자판기 하단 -->
-      <div id="machineBottom">
-
-        <div id="coinPart">
-          <div class="coinPicture">🪙</div>
-          <div class="coinHole"></div>
+      <section class="panel">
+        <div class="section-title">🌟 2. 오늘의 출연진</div>
+        <div id="lineup" class="lineup">
+          <div class="empty-slot">1번 출연진</div>
+          <div class="empty-slot">2번 출연진</div>
+          <div class="empty-slot">3번 출연진</div>
         </div>
-
-
-        <!-- 상품 떨어지는 곳 -->
-        <div id="deliveryDoor">
-
-          <div id="deliveryItem"></div>
-
+        <div class="button-row">
+          <button id="randomLineupBtn" class="secondary-btn">
+            🎲 랜덤 캐스팅
+          </button>
+          <button id="clearLineupBtn" class="secondary-btn">
+            ↩️ 다시 고르기
+          </button>
         </div>
+      </section>
 
-      </div>
+      <section class="panel">
+        <div class="section-title">🎵 3. 공연 노래</div>
+        <div id="songChoices" class="choice-grid"></div>
+      </section>
 
-    </div>
+      <section class="panel">
+        <div class="section-title">🎪 4. 무대 선택</div>
+        <div id="stageChoices" class="choice-grid"></div>
+      </section>
 
-  </section>
-
-
-  <!-- =========================
-       하단 안내
-  ========================== -->
-  <section id="bottomArea">
-
-    <div id="guideBox">
-
-      <span id="guideEmoji">👆</span>
-
-      <span id="guideText">
-        같은 그림을 찾아봐!
-      </span>
-
-    </div>
-
-
-    <div id="pickedItems"></div>
-
-  </section>
-
-
-  <!-- =========================
-       꾸미기 버튼
-  ========================== -->
-
-  <button id="dressOpenButton">
-    🎀
-  </button>
-
-
-  <!-- =========================
-       성공 팝업
-  ========================== -->
-
-  <div id="successScreen" class="overlay hidden">
-
-    <div class="popup">
-
-      <div id="happyPenguin">
-        🐧
-      </div>
-
-      <div class="starParty">
-        ⭐ ⭐ ⭐
-      </div>
-
-      <div id="rewardPicture">
-        🎁
-      </div>
-
-      <button id="nextButton">
-        ▶️
+      <button id="startShowBtn" class="primary-btn">
+        🎬 공연 시작!
       </button>
+      <p id="setupMessage" class="setup-message"></p>
+    </section>
 
+    <section id="showScreen" class="screen hidden">
+      <div class="show-toolbar">
+        <div>
+          <strong id="showSongTitle">🎵 우이우하하</strong>
+          <div id="showStageTitle" class="show-subtitle">레인보우 무대</div>
+        </div>
+        <button id="backBtn" class="secondary-btn">🏠 기획실</button>
+      </div>
+
+      <div id="stage" class="stage rainbow">
+        <div class="stage-lights">
+          <span>💡</span><span>✨</span><span>💡</span>
+        </div>
+        <div id="musicNotes" class="music-notes"></div>
+        <div class="stage-banner">AJUN RAIL DANCE LIVE!</div>
+        <div id="performers" class="performers"></div>
+        <div class="stage-floor"></div>
+        <div class="audience">🙌 👏 🐧 👏 🙌 🎉 👏</div>
+      </div>
+
+      <div class="show-info">
+        <div id="showStatus">공연 준비 중!</div>
+        <div id="showTimer">00:00</div>
+      </div>
+
+      <div class="dance-controls">
+        <button class="dance-btn" data-dance="bounce">⬆️ 점프 댄스</button>
+        <button class="dance-btn" data-dance="sway">↔️ 흔들흔들</button>
+        <button class="dance-btn" data-dance="spin">🔄 빙글빙글</button>
+        <button class="dance-btn" data-dance="wave">🌊 파도타기</button>
+        <button class="dance-btn" data-dance="shuffle">🎲 랜덤 댄스</button>
+      </div>
+
+      <div id="surpriseBox" class="surprise-box hidden">
+        <h2 id="surpriseTitle">⚠️ 돌발상황!</h2>
+        <p id="surpriseText"></p>
+        <div id="surpriseChoices" class="surprise-choices"></div>
+      </div>
+
+      <div class="show-bottom">
+        <button id="pauseBtn" class="secondary-btn">⏸️ 일시정지</button>
+        <button id="finishBtn" class="primary-btn">🏆 공연 마무리</button>
+      </div>
+    </section>
+
+    <div id="resultOverlay" class="overlay hidden">
+      <div class="result-card">
+        <div class="result-icon">🏆🎉</div>
+        <h2>공연 대성공!</h2>
+        <p id="resultText"></p>
+        <div id="resultStars" class="result-stars">⭐⭐⭐</div>
+        <button id="againBtn" class="primary-btn">🎬 다음 공연 기획하기</button>
+      </div>
     </div>
-
-  </div>
-
-
-  <!-- =========================
-       꾸미기 팝업
-  ========================== -->
-
-  <div id="dressScreen" class="overlay hidden">
-
-    <div class="popup">
-
-      <div class="dressTitle">
-        🐧 ✨
-      </div>
-
-      <div id="dressPenguin">
-
-        <div id="dressAccessory"></div>
-
-        🐧
-
-      </div>
-
-
-      <div id="dressChoices">
-
-        <button class="dressChoice" data-dress="👑">
-          👑
-        </button>
-
-        <button class="dressChoice" data-dress="🎀">
-          🎀
-        </button>
-
-        <button class="dressChoice" data-dress="🧢">
-          🧢
-        </button>
-
-        <button class="dressChoice" data-dress="👓">
-          👓
-        </button>
-
-        <button class="dressChoice" data-dress="🧣">
-          🧣
-        </button>
-
-        <button class="dressChoice" data-dress="">
-          ❌
-        </button>
-
-      </div>
-
-
-      <button id="dressCloseButton">
-        ✔️
-      </button>
-
-    </div>
-
-  </div>
-
-
-  <!-- =========================
-       미니게임
-  ========================== -->
-
-  <div id="miniGameScreen" class="overlay hidden">
-
-    <div class="popup miniPopup">
-
-      <div id="miniGameTitle">
-        ❄️
-      </div>
-
-      <div id="miniGameArea"></div>
-
-    </div>
-
-  </div>
-
-</div>
-
-
-<!-- 중요: script.js -->
-<script src="script.js"></script>
-
+  </main>
 </body>
 </html>
